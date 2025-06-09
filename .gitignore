@@ -1,0 +1,54 @@
+# 🔒 Security - Never commit sensitive data
+.env
+*.log
+logs.txt
+errors.log
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 🔧 Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 💻 IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 📊 Data files (may contain sensitive info)
+debug_output.json
+
+# 🔑 Backup files
+*.bak
+*.backup
+*.old
+
+# 📱 OS
+.DS_Store
+Thumbs.db
