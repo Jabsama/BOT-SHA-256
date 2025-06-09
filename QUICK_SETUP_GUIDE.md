@@ -106,10 +106,10 @@ python intelligent_bot.py
 
 | Bot Type | Posts/Day | Platforms | Best For |
 |----------|-----------|-----------|----------|
-| **Optimized** | 5-7 | All | Beginners |
+| **Optimized** | 43 | All | Beginners |
 | **Explosive** | 59 | All | Max Revenue |
-| **Intelligent** | 3-8 | All | Quality Content |
-| **Timer** | 32+ | Twitter+Telegram | Real-time tracking |
+| **Intelligent** | 43 | All | Quality Content |
+| **Timer** | 59+ | Twitter+Telegram | Real-time tracking |
 
 ---
 

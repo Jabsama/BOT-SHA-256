@@ -393,18 +393,26 @@ class FinalOptimizedBot:
             error_logger.error(f"❌ Erreur Reddit post: {e}")
             
     def setup_optimized_scheduler(self):
-        """Configure le planificateur optimisé"""
-        # Twitter : 1x/jour à 14h UTC (optimal)
-        schedule.every().day.at("14:00").do(self.twitter_post)
+        """Configure le planificateur optimisé pour MAXIMUM de posts"""
+        # Twitter : 16 posts/jour (toutes les 90 minutes)
+        times_twitter = ["00:30", "02:00", "03:30", "05:00", "06:30", "08:00", 
+                        "09:30", "11:00", "12:30", "14:00", "15:30", "17:00",
+                        "18:30", "20:00", "21:30", "23:00"]
         
-        # Telegram : 2x/jour à 10h et 18h UTC
-        schedule.every().day.at("10:00").do(self.telegram_post)
-        schedule.every().day.at("18:00").do(self.telegram_post)
+        for time_str in times_twitter:
+            schedule.every().day.at(time_str).do(self.twitter_post)
         
-        # Reddit : 1x tous les 2 jours à 15h UTC
-        schedule.every(2).days.at("15:00").do(self.reddit_post)
+        # Telegram : 24 posts/jour (toutes les heures)
+        for hour in range(24):
+            time_str = f"{hour:02d}:00"
+            schedule.every().day.at(time_str).do(self.telegram_post)
         
-        logging.info("✅ Planificateur optimisé configuré")
+        # Reddit : 3 posts/jour (maximum recommandé)
+        schedule.every().day.at("08:00").do(self.reddit_post)
+        schedule.every().day.at("14:00").do(self.reddit_post)
+        schedule.every().day.at("20:00").do(self.reddit_post)
+        
+        logging.info("✅ Planificateur MAXIMUM configuré: 43 posts/jour")
         
     def run_test(self):
         """Lance un test complet"""
@@ -435,10 +443,11 @@ class FinalOptimizedBot:
         print("🚀 Lancement du bot VoltageGPU FINAL OPTIMISÉ...")
         self.setup_optimized_scheduler()
         
-        print("⏰ PLANIFICATION OPTIMISÉE ACTIVE:")
-        print("   🐦 Twitter: 14h UTC (1x/jour) - Alternance GPU/Affiliation")
-        print("   📱 Telegram: 10h et 18h UTC (2x/jour) - 80% Affiliation")
-        print("   🔴 Reddit: 15h UTC (1x/2 jours) - Rotation 6 subreddits")
+        print("⏰ PLANIFICATION MAXIMUM ACTIVE:")
+        print("   🐦 Twitter: 16 posts/jour (toutes les 90 min) - Alternance GPU/Affiliation")
+        print("   📱 Telegram: 24 posts/jour (toutes les heures) - 80% Affiliation")
+        print("   🔴 Reddit: 3 posts/jour (8h, 14h, 20h) - Rotation 6 subreddits")
+        print("   📊 TOTAL: 43 posts/jour = 1290 posts/mois")
         print("   🌍 Langues: 70% EN + 30% ZH")
         print("🛑 Ctrl+C pour arrêter")
         

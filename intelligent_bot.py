@@ -427,26 +427,26 @@ class IntelligentVoltageBot:
             print(f"   {platform}: {metrics['posts']} posts")
             
     def setup_intelligent_scheduler(self):
-        """Configure le planificateur intelligent"""
-        # Horaires adaptatifs selon la personnalité
-        if self.bot_personality == 'technical_expert':
-            # Horaires professionnels
-            schedule.every().day.at("09:00").do(lambda: self.intelligent_post('twitter'))
-            schedule.every().day.at("14:00").do(lambda: self.intelligent_post('telegram'))
-        elif self.bot_personality == 'crypto_enthusiast':
-            # Horaires crypto (24/7)
-            schedule.every().day.at("06:00").do(lambda: self.intelligent_post('twitter'))
-            schedule.every().day.at("18:00").do(lambda: self.intelligent_post('telegram'))
-        else:
-            # Horaires équilibrés
-            schedule.every().day.at("14:00").do(lambda: self.intelligent_post('twitter'))
-            schedule.every().day.at("10:00").do(lambda: self.intelligent_post('telegram'))
-            schedule.every().day.at("18:00").do(lambda: self.intelligent_post('telegram'))
-            
-        # Reddit intelligent (moins fréquent)
-        schedule.every(2).days.at("15:00").do(lambda: self.intelligent_post('reddit'))
+        """Configure le planificateur intelligent pour MAXIMUM de posts"""
+        # Twitter : 16 posts/jour (toutes les 90 minutes) - adaptatif selon personnalité
+        times_twitter = ["00:30", "02:00", "03:30", "05:00", "06:30", "08:00", 
+                        "09:30", "11:00", "12:30", "14:00", "15:30", "17:00",
+                        "18:30", "20:00", "21:30", "23:00"]
         
-        logging.info("🧠 Planificateur intelligent configuré")
+        for time_str in times_twitter:
+            schedule.every().day.at(time_str).do(lambda: self.intelligent_post('twitter'))
+        
+        # Telegram : 24 posts/jour (toutes les heures) - intelligence adaptative
+        for hour in range(24):
+            time_str = f"{hour:02d}:00"
+            schedule.every().day.at(time_str).do(lambda: self.intelligent_post('telegram'))
+        
+        # Reddit : 3 posts/jour (maximum intelligent)
+        schedule.every().day.at("08:00").do(lambda: self.intelligent_post('reddit'))
+        schedule.every().day.at("14:00").do(lambda: self.intelligent_post('reddit'))
+        schedule.every().day.at("20:00").do(lambda: self.intelligent_post('reddit'))
+        
+        logging.info("🧠 Planificateur intelligent MAXIMUM configuré: 43 posts/jour")
         
     def run(self):
         """Lance le bot intelligent"""
