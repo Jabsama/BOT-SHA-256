@@ -1,26 +1,4 @@
 {
-  "twitter": {
-    "en": {
-      "affiliate": [
-        "💰 EASY MONEY ALERT! 💰\n\n🤑 Earn passive income with GPU referrals\n📈 5% commission on every sale\n🔥 Code {affiliate_code} = instant earnings\n⚡ VoltageGPU pays 70% less than AWS\n\n💸 Start earning: https://voltagegpu.com/?ref={affiliate_code}\n\n#PassiveIncome #EasyMoney #CryptoEarnings #SideHustle",
-        "🚀 TURN YOUR NETWORK INTO CASH! 🚀\n\n💡 Share VoltageGPU, earn money\n🎯 Code {affiliate_code} tracks your earnings\n💰 5% of every GPU rental = yours\n📊 People save 70%, you earn 5%\n\n🔗 Start now: https://voltagegpu.com/?ref={affiliate_code}\n\n#AffiliateMarketing #PassiveIncome #CryptoGains"
-      ],
-      "gpu_deals": [
-        "🚨 INSANE GPU DEAL ALERT! 🚨\n\n💻 {gpu_count}x {gpu_type} for only {price}/hour\n⚡ 70% cheaper than AWS equivalent\n🌍 Location: {location}\n📊 {uptime} uptime guaranteed\n\n💰 Use code {affiliate_code} for extra 5% OFF!\n🔗 Grab it now: https://voltagegpu.com/?ref={affiliate_code}\n\n#GPUDeals #AITraining #CheapGPU #MachineLearning",
-        "🔥 GPU DEAL OF THE DAY! 🔥\n\n⚡ {gpu_count}x {gpu_type} @ {price}/h\n💸 Save 70% vs AWS/GCP\n📍 {location} datacenter\n⏱️ {uptime} reliability\n\n🎁 Code {affiliate_code} = 5% extra discount\n👉 https://voltagegpu.com/?ref={affiliate_code}\n\n#AI #GPU #CloudComputing #MLTraining"
-      ]
-    },
-    "zh": {
-      "affiliate": [
-        "💰 轻松赚钱警报！💰\n\n🤑 通过GPU推荐赚取被动收入\n📈 每笔销售5%佣金\n🔥 代码 {affiliate_code} = 即时收益\n⚡ VoltageGPU比AWS便宜70%\n\n💸 开始赚钱：https://voltagegpu.com/?ref={affiliate_code}\n\n#被动收入 #轻松赚钱 #加密收益",
-        "🚀 把你的人脉变成现金！🚀\n\n💡 分享VoltageGPU，赚取金钱\n🎯 代码 {affiliate_code} 追踪你的收益\n💰 每次GPU租赁的5% = 你的\n📊 他们省70%，你赚5%\n\n🔗 立即开始：https://voltagegpu.com/?ref={affiliate_code}\n\n#联盟营销 #被动收入"
-      ],
-      "gpu_deals": [
-        "🚨 疯狂GPU优惠警报！🚨\n\n💻 {gpu_count}x {gpu_type} 仅需 {price}/小时\n⚡ 比AWS同等配置便宜70%\n🌍 位置：{location}\n📊 {uptime} 正常运行时间保证\n\n💰 使用代码 {affiliate_code} 额外享受5%折扣！\n🔗 立即获取：https://voltagegpu.com/?ref={affiliate_code}\n\n#GPU优惠 #AI训练 #便宜GPU #机器学习",
-        "🔥 今日GPU优惠！🔥\n\n⚡ {gpu_count}x {gpu_type} @ {price}/小时\n💸 比AWS/GCP节省70%\n📍 {location} 数据中心\n⏱️ {uptime} 可靠性\n\n🎁 代码 {affiliate_code} = 额外5%折扣\n👉 https://voltagegpu.com/?ref={affiliate_code}\n\n#AI #GPU #云计算 #ML训练"
-      ]
-    }
-  },
   "telegram": {
     "en": {
       "affiliate": [

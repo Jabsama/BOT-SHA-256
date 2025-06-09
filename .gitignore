@@ -1,8 +1,13 @@
 # 🔒 Security - Never commit sensitive data
 .env
+.env.*
+!.env.example
 *.log
 logs.txt
 errors.log
+intelligent_logs.txt
+bot_final_timer.txt
+bot_explosif.txt
 
 # 🐍 Python
 __pycache__/
