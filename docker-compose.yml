@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  voltagegpu-bot:
+    build: .
+    container_name: voltagegpu-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python final_optimized_bot.py
+    
+  voltagegpu-bot-explosive:
+    build: .
+    container_name: voltagegpu-bot-explosive
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python bot_explosif.py
+    profiles:
+      - explosive
+    
+  voltagegpu-bot-intelligent:
+    build: .
+    container_name: voltagegpu-bot-intelligent
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python intelligent_bot.py
+    profiles:
+      - intelligent
+
+networks:
+  default:
+    name: voltagegpu-network

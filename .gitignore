@@ -9,6 +9,10 @@ intelligent_logs.txt
 bot_final_timer.txt
 bot_explosif.txt
 
+# 📊 Logs directory
+logs/
+!logs/.gitkeep
+
 # 🐍 Python
 __pycache__/
 *.py[cod]

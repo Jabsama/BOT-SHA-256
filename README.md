@@ -2,7 +2,11 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![CI](https://github.com/Jabsama/BOT-SHA-256/workflows/CI/badge.svg)](https://github.com/Jabsama/BOT-SHA-256/actions)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](Dockerfile)
 [![Platforms](https://img.shields.io/badge/Platforms-Twitter%20%7C%20Telegram%20%7C%20Reddit-orange.svg)](#platforms)
+[![Stars](https://img.shields.io/github/stars/Jabsama/BOT-SHA-256.svg)](https://github.com/Jabsama/BOT-SHA-256/stargazers)
+[![Forks](https://img.shields.io/github/forks/Jabsama/BOT-SHA-256.svg)](https://github.com/Jabsama/BOT-SHA-256/network)
 
 > **Automated marketing bot for VoltageGPU affiliate program with SHA-256 referral codes**
 
@@ -35,9 +39,9 @@ python final_optimized_bot.py
 ## 💰 What This Bot Does
 
 ### 📊 **Daily Performance**
-- **3.5 posts per day** across all platforms
-- **105 posts per month** with intelligent scheduling
-- **100+ affiliate clicks monthly** potential
+- **43-59 posts per day** across all platforms (MAXIMUM MODE)
+- **1290-1810 posts per month** with intelligent scheduling
+- **500+ affiliate clicks monthly** potential
 
 ### 🎯 **Smart Content Strategy**
 - **Twitter**: Alternates GPU deals ↔ Affiliate promotions
@@ -129,19 +133,20 @@ AFFILIATE_CODE=SHA-256-YOUR_UNIQUE_CODE
 
 ## 📅 Posting Schedule
 
-### ⏰ **Optimized Timing**
-- **Twitter**: Daily at 2 PM UTC (optimal global engagement)
-- **Telegram**: Twice daily at 10 AM & 6 PM UTC
-- **Reddit**: Every 2 days at 3 PM UTC (quality over quantity)
+### ⏰ **MAXIMUM Posting Schedule**
+- **Twitter**: 16 posts/day (every 90 minutes)
+- **Telegram**: 24 posts/day (every hour)
+- **Reddit**: 3 posts/day (8h, 14h, 20h UTC)
 
 ### 🎯 **Content Strategy**
 ```
-📊 WEEKLY BREAKDOWN:
-├── Twitter: 7 posts (alternating GPU deals/affiliate)
-├── Telegram: 14 posts (80% affiliate, 20% GPU deals)
-└── Reddit: 3-4 posts (rotating 6 subreddits)
+📊 DAILY BREAKDOWN (MAXIMUM MODE):
+├── Twitter: 16 posts (alternating GPU deals/affiliate)
+├── Telegram: 24 posts (80% affiliate, 20% GPU deals)
+└── Reddit: 3 posts (rotating 6 subreddits)
 
-🎯 MONTHLY TOTAL: ~105 posts across all platforms
+🎯 DAILY TOTAL: 43 posts/day = 1290 posts/month
+🚀 EXPLOSIVE MODE: 59 posts/day = 1810 posts/month
 ```
 
 ## 🎨 Content Examples
