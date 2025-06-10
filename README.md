@@ -1,258 +1,309 @@
-# 🤖 VoltageGPU Bot - Automated Multi-Platform Marketing
+# 🚀 VoltageGPU Bot - Unified Launcher
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platforms](https://img.shields.io/badge/Platforms-Twitter%20%7C%20Telegram%20%7C%20Reddit-orange.svg)](#platforms)
 
-> **Automated marketing bot for VoltageGPU affiliate program with SHA-256 referral codes**
+> **Automated marketing bot for VoltageGPU with unified launcher - Twitter + Telegram + Reddit**
 
-Transform your social media presence into a passive income stream! This intelligent bot automatically promotes VoltageGPU's 70% cheaper GPU rentals across multiple platforms while earning you affiliate commissions.
+One simple script to launch all bots! Automatically promotes VoltageGPU's 70% cheaper GPU rentals across multiple platforms while earning you affiliate commissions.
 
-## 🚀 Quick Start (5 Minutes Setup)
+## ⚡ Quick Start (2 Minutes Setup)
 
-### 1. Clone & Install
+1. **Clone & Install**
 ```bash
-git clone https://github.com/Jabsama/BOT-SHA-256.git
-cd BOT-SHA-256
+git clone https://github.com/your-username/voltagegpu-bot.git
+cd voltagegpu-bot
 pip install -r requirements.txt
 ```
 
-### 2. Configure Your Bot
+2. **Configure .env**
 ```bash
 cp .env.example .env
-# Edit .env with your API keys (see setup guide below)
+# Edit .env with your API keys
 ```
 
-### 3. Test & Launch
+3. **Launch**
 ```bash
-# Test your configuration
-python final_optimized_bot.py --test
+# Test mode (no real posts)
+python launch_bot.py --test
 
-# Launch in production
-python final_optimized_bot.py
+# Production mode (real posts)
+python launch_bot.py
 ```
 
-## 💰 What This Bot Does
+## 📊 Performance
 
-### 📊 **Daily Performance**
-- **3.5 posts per day** across all platforms
-- **105 posts per month** with intelligent scheduling
-- **100+ affiliate clicks monthly** potential
+- **🐦 Twitter**: 40 posts/day (2 accounts × 20 posts)
+- **💬 Telegram**: 30 posts/day
+- **📍 Reddit**: 20+ posts/day (9 targeted subreddits)
+- **📈 Total**: 90+ automated posts/day
 
-### 🎯 **Smart Content Strategy**
-- **Twitter**: Alternates GPU deals ↔ Affiliate promotions
-- **Telegram**: 80% affiliate focus (mobile users love easy money)
-- **Reddit**: 90% technical analysis (developers want details)
+## 🔧 Configuration
 
-### 🌍 **Multi-Language Support**
-- **70% English** (primary market)
-- **30% Chinese** (high-value Asian market)
-- Culturally adapted content for each audience
+### 1. VoltageGPU API (Required)
+```env
+VOLTAGE_API_KEY=your_api_key
+AFFILIATE_CODE=your_affiliate_code
+```
 
-## 🛠️ Platform Setup Guides
+### 2. Twitter (Optional - 2 accounts max)
+```env
+# Account 1
+TWITTER_API_KEY=your_api_key
+TWITTER_API_SECRET=your_api_secret
+TWITTER_BEARER_TOKEN=your_bearer_token
+TWITTER_ACCESS_TOKEN=your_access_token
+TWITTER_ACCESS_SECRET=your_access_secret
 
-### 🐦 Twitter Setup (Required)
+# Account 2 (optional)
+TWITTER_API_KEY_2=your_api_key_2
+TWITTER_API_SECRET_2=your_api_secret_2
+TWITTER_BEARER_TOKEN_2=your_bearer_token_2
+TWITTER_ACCESS_TOKEN_2=your_access_token_2
+TWITTER_ACCESS_SECRET_2=your_access_secret_2
+```
 
-1. **Create Twitter Developer Account**
-   - Go to [developer.twitter.com](https://developer.twitter.com)
-   - Apply for developer access
-   - Create a new app
+### 3. Telegram (Optional but Recommended)
+```env
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHANNEL_ID=@your_public_channel
+```
 
-2. **Get Your API Keys**
-   ```
-   API Key: your_api_key_here
-   API Secret: your_api_secret_here
-   Bearer Token: your_bearer_token_here
-   Access Token: your_access_token_here
-   Access Token Secret: your_access_token_secret_here
-   ```
+**⚠️ Important:** Create a **PUBLIC channel** with subscribers, not a private group! 
+- Public channels can be found by anyone
+- Share your channel link to build audience
+- Example: @VoltageGPUDeals, @CheapGPURentals, @AITrainingDeals
 
-3. **Configure App Permissions**
-   - Set to "Read and Write"
-   - App type: "Web App, Automated App or Bot"
+**🤖 Autonomous Telegram Strategies:**
+1. **Join existing tech groups** and share your bot's content manually
+2. **Create themed channel** (@YourNameGPUDeals) and promote it
+3. **Cross-promote** on Twitter/Reddit to build Telegram audience
+4. **Partner with influencers** to share your channel
+5. **Use bot for personal messaging** to friends/colleagues interested in GPU deals
 
-### 📱 Telegram Setup (Optional but Recommended)
+### 4. Reddit (Optional - 2 accounts max)
+```env
+# Account 1
+REDDIT_CLIENT_ID=your_client_id
+REDDIT_CLIENT_SECRET=your_client_secret
+REDDIT_USERNAME=your_username
+REDDIT_PASSWORD=your_password
 
-1. **Create Telegram Bot**
-   - Message [@BotFather](https://t.me/botfather) on Telegram
-   - Send `/newbot`
-   - Choose name: "YourName VoltageGPU Bot"
-   - Get your bot token
+# Account 2 (optional)
+REDDIT_CLIENT_ID_2=your_client_id_2
+REDDIT_CLIENT_SECRET_2=your_client_secret_2
+REDDIT_USERNAME_2=your_username_2
+REDDIT_PASSWORD_2=your_password_2
+```
 
-2. **Create Public Channel**
-   - Create a public channel for your posts
-   - Add your bot as administrator
-   - Get channel username (e.g., @your_channel)
+## 🎯 Targeted Subreddits
 
-### 🔴 Reddit Setup (Optional)
+| Subreddit | Posts/day | Audience | Priority |
+|-----------|-----------|----------|----------|
+| r/GPURental | 8 | 12k | 🔥 Max |
+| r/MachineLearning | 2 | 3.6M | 🔥 High |
+| r/DeepLearning | 2 | 1.1M | 🔥 High |
+| r/LocalLLaMA | 2 | 400k | 🔥 High |
+| r/artificial | 2 | 1.8M | 🔥 High |
+| r/developersIndia | 2 | 200k | 🔥 High |
+| r/indiandevs | 2 | 50k | 🔥 Med |
+| r/programacao | 2 | 80k | 🔥 High |
+| r/vastai | 2 | 42k | 🔥 Med |
 
-1. **Create Reddit App**
-   - Go to [reddit.com/prefs/apps](https://reddit.com/prefs/apps)
-   - Create "script" application
-   - Get client ID and secret
+## 📱 Real-Time Dashboard
 
-2. **Use Your Reddit Account**
-   - Username and password of your Reddit account
-   - Bot will post using your account
+```
+🚀 VOLTAGEGPU BOT - UNIFIED LAUNCHER
+⏰ 14:32:15 | Uptime: 2:15:30
 
-## ⚙️ Configuration (.env file)
+📊 POSTS TODAY:
+   🐦 Twitter: 25
+   💬 Telegram: 18
+   📍 Reddit: 12
+   📈 TOTAL: 55
 
-Create your `.env` file with these settings:
+⏰ NEXT POSTS:
+   🐦 Twitter1: 15min (12/20)
+   🐦 Twitter2: 45min (13/20)
+   💬 Telegram: 23min (18/30)
+   📍 Reddit: 08min
+
+📍 TOP SUBREDDITS:
+   r/GPURental: 4 posts
+   r/MachineLearning: 2 posts
+   r/LocalLLaMA: 2 posts
+
+💰 CODE: SHA-256-76360B81D39F
+🛑 Ctrl+C to stop
+```
+
+## 🔑 Getting API Keys
+
+### Twitter
+1. Go to [developer.twitter.com](https://developer.twitter.com)
+2. Create an app
+3. Generate API keys
+
+### Telegram
+1. Message [@BotFather](https://t.me/botfather)
+2. Create bot with `/newbot`
+3. Get the token
+
+### Reddit
+1. Go to [reddit.com/prefs/apps](https://reddit.com/prefs/apps)
+2. Create "script" app
+3. Note client_id and client_secret
+
+### VoltageGPU
+1. Sign up at [voltagegpu.com](https://voltagegpu.com)
+2. Get API key from settings
+3. Generate affiliate code
+
+## 🛠️ Features
+
+### ✅ Automatic Timer
+- **Twitter**: Posts every 90 minutes per account
+- **Telegram**: Posts every hour
+- **Reddit**: Posts every 30 minutes
+
+### ✅ Multi-Account Support
+- Automatic support for 2 Twitter accounts
+- Automatic support for 2 Reddit accounts
+- Intelligent post distribution
+
+### ✅ Built-in Templates
+- GPU deals and affiliate templates
+- Platform-adapted content
+- Automatic variables (price, GPU, etc.)
+
+### ✅ VoltageGPU API Integration
+- Automatic offer retrieval
+- Fallback to mock offers
+- Affiliate code in every post
+
+### ✅ Smart Management
+- Reddit ban detection
+- Daily limits respected
+- Automatic midnight reset
+- Detailed logging
+
+## 📋 Commands
 
 ```bash
-# VoltageGPU API (Required)
-VOLTAGE_API_KEY=your_voltagegpu_api_key
+# Test without posting
+python launch_bot.py --test
 
-# Twitter (Required)
-TWITTER_ENABLED=true
-TWITTER_API_KEY=your_twitter_api_key
-TWITTER_API_SECRET=your_twitter_api_secret
-TWITTER_BEARER_TOKEN=your_twitter_bearer_token
-TWITTER_ACCESS_TOKEN=your_twitter_access_token
-TWITTER_ACCESS_SECRET=your_twitter_access_secret
+# Normal launch
+python launch_bot.py
 
-# Telegram (Optional - High ROI)
-TELEGRAM_ENABLED=false
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-TELEGRAM_CHANNEL_ID=@your_channel_name
-
-# Reddit (Optional - Tech Audience)
-REDDIT_ENABLED=false
-REDDIT_CLIENT_ID=your_reddit_client_id
-REDDIT_CLIENT_SECRET=your_reddit_client_secret
-REDDIT_USERNAME=your_reddit_username
-REDDIT_PASSWORD=your_reddit_password
-
-# Your Affiliate Code (Required)
-AFFILIATE_CODE=SHA-256-YOUR_UNIQUE_CODE
+# View logs
+tail -f voltagegpu_bot.log
 ```
 
-## 📅 Posting Schedule
+## 🚨 Safety Limits
 
-### ⏰ **Optimized Timing**
-- **Twitter**: Daily at 2 PM UTC (optimal global engagement)
-- **Telegram**: Twice daily at 10 AM & 6 PM UTC
-- **Reddit**: Every 2 days at 3 PM UTC (quality over quantity)
-
-### 🎯 **Content Strategy**
-```
-📊 WEEKLY BREAKDOWN:
-├── Twitter: 7 posts (alternating GPU deals/affiliate)
-├── Telegram: 14 posts (80% affiliate, 20% GPU deals)
-└── Reddit: 3-4 posts (rotating 6 subreddits)
-
-🎯 MONTHLY TOTAL: ~105 posts across all platforms
-```
+- **Twitter**: 20 posts/day per account (API limit)
+- **Telegram**: 30 posts/day (bot limit)
+- **Reddit**: 2-8 posts/day per subreddit (community guidelines)
 
 ## 🎨 Content Examples
 
 ### Twitter
 ```
-🚀 4x B200 @ $45.50/h – 70% cheaper than AWS!
-Available in Raleigh 🌍
-Perfect for AI training & development
-🔗 https://voltagegpu.com/?ref=SHA-256-YOUR_CODE
-#AI #CloudGPU #MachineLearning
+🚨 INSANE GPU DEAL! 🚨
+
+💻 8x H200 for $42.08/hour
+⚡ 70% cheaper than AWS
+🌍 Raleigh | 97.8% uptime
+
+💰 Code SHA-256-76360B81D39F = 5% OFF!
+🔗 https://voltagegpu.com/?ref=SHA-256-76360B81D39F
+
+#GPUDeals #AI
 ```
 
 ### Telegram
 ```
 💰 EASY MONEY WITH GPU REFERRALS! 💰
 
-🚀 VoltageGPU = 70% cheaper than AWS
-💎 Your SHA-256 code = Your ATM machine
+🚀 70% cheaper than AWS
+💎 Your code = Your ATM
 📱 Share once, earn forever!
 
-✅ 5% commission on EVERY rental
-🔗 Start earning: https://voltagegpu.com/?ref=SHA-256-YOUR_CODE
+✅ 5% commission
+✅ 5% discount for users
+
+🔗 https://voltagegpu.com/?ref=SHA-256-76360B81D39F
+
+💬 What's your biggest AI challenge?
 ```
 
 ### Reddit
 ```
-**VoltageGPU vs AWS: Real Cost Analysis**
+🔬 **VoltageGPU vs AWS: Real Cost Analysis**
 
-Configuration: 4x B200
-VoltageGPU: $45.50/hour
-AWS P5 equivalent: ~$120+/hour
-Your savings: 70%+ cost reduction
+**Config:** 8x H200
+**Price:** $42.08/hour vs $120+/hour AWS
+**Savings:** 70%+ cost reduction
+**Location:** Raleigh | **Uptime:** 97.8%
 
-Bonus: Use code SHA-256-YOUR_CODE for additional 5% off
-Link: https://voltagegpu.com/?ref=SHA-256-YOUR_CODE
+**Bonus:** Code `SHA-256-76360B81D39F` for 5% off
+**Link:** https://voltagegpu.com/?ref=SHA-256-76360B81D39F
 
 Anyone else tired of AWS pricing?
 ```
 
 ## 🔧 Advanced Features
 
-### 🧠 **Intelligent Rotation**
-- **Reddit**: Automatically rotates between 6 optimized subreddits
-- **Languages**: Smart distribution (70% EN, 30% ZH)
-- **Content Types**: Platform-specific strategies
+### 🧠 Smart Rotation
+- **Reddit**: Automatically rotates between 9 optimized subreddits
+- **Content**: Platform-specific strategies
+- **Timing**: Optimal posting schedules
 
-### 📊 **Built-in Analytics**
-- Post tracking and statistics
+### 📊 Built-in Analytics
+- Real-time post tracking
 - Error logging and monitoring
 - Performance metrics
 
-### 🛡️ **Safety Features**
-- Rate limiting to avoid platform restrictions
-- Fallback data when API is unavailable
+### 🛡️ Safety Features
+- Rate limiting to avoid restrictions
+- Fallback data when API unavailable
 - Automatic error recovery
-
-## 🚀 Running Your Bot
-
-### 🧪 **Test Mode**
-```bash
-python final_optimized_bot.py --test
-```
-This shows you what content will be posted without actually posting.
-
-### 🔴 **Production Mode**
-```bash
-python final_optimized_bot.py
-```
-Starts the bot with scheduled posting.
-
-### 📊 **Monitor Performance**
-```bash
-tail -f logs.txt
-```
-Watch your bot's activity in real-time.
+- Ban detection and avoidance
 
 ## 💡 Pro Tips
 
-### 🎯 **Maximize Earnings**
-1. **Start with Twitter + Telegram** (highest ROI)
+### 🎯 Maximize Earnings
+1. **Start with all platforms** for maximum reach
 2. **Share your affiliate code** in relevant communities
-3. **Monitor logs** to optimize posting times
-4. **Add Reddit** once comfortable with the bot
+3. **Monitor dashboard** to optimize performance
+4. **Let it run 24/7** for consistent results
 
-### 🔧 **Troubleshooting**
-- **Twitter 403 errors**: Check app permissions in Developer Portal
-- **Telegram not posting**: Verify bot is admin of your channel
+### 🔧 Troubleshooting
+- **Twitter 403 errors**: Check app permissions
+- **Telegram not posting**: Verify bot is channel admin
 - **Reddit issues**: Ensure account has enough karma
+- **API errors**: Check your VoltageGPU API key
 
-### 📈 **Scaling Up**
-- **Multiple accounts**: Run separate instances
-- **More platforms**: Easy to add Discord, LinkedIn
-- **Custom content**: Modify templates in `multilingual_templates.json`
+### 📈 Scaling Up
+- **Multiple instances**: Run on different servers
+- **More accounts**: Add more Twitter/Reddit accounts
+- **Custom content**: Modify templates as needed
 
 ## 📁 Project Structure
 
 ```
-BOT-SHA-256/
-├── final_optimized_bot.py      # Main bot (recommended)
-├── multilingual_templates.json # Content templates
-├── mock_data.json             # Fallback GPU data
-├── requirements.txt           # Python dependencies
-├── .env.example              # Configuration template
-├── .gitignore               # Security (hides sensitive files)
-└── README.md               # This guide
+voltagegpu-bot/
+├── launch_bot.py                # 🚀 Main unified launcher
+├── multilingual_templates.json  # Content templates
+├── requirements.txt             # Python dependencies
+├── .env.example                # Configuration template
+├── .gitignore                  # Security
+└── README.md                   # This guide
 ```
 
 ## 🤝 Contributing
-
-Found a bug or want to add a feature? 
 
 1. Fork the repository
 2. Create your feature branch
@@ -260,25 +311,24 @@ Found a bug or want to add a feature?
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## ⚠️ Disclaimer
 
 - Use responsibly and follow platform terms of service
-- This bot is for educational and legitimate affiliate marketing
 - Monitor your bot's activity regularly
 - Respect community guidelines on all platforms
 
 ## 🎉 Success Stories
 
-> "Made $200+ in my first month just by running this bot and sharing my affiliate code with colleagues!" - Anonymous User
+> "Made $200+ in my first month just by running this bot!" - Anonymous User
 
-> "The Reddit integration is genius - posts look completely natural and get great engagement." - Tech Entrepreneur
+> "The unified launcher makes it so easy - one command and everything works!" - Developer
 
 ---
 
-**🚀 Ready to turn your social media into a money-making machine?**
+**🚀 Ready to automate your VoltageGPU promotion?**
 
-**⭐ Star this repo if it helps you earn passive income!**
+**⭐ Star this repo if it helps you!**
 
-**💬 Questions? Open an issue or join our community discussions.**
+**💬 Questions? Open an issue!**
