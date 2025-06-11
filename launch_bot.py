@@ -593,50 +593,81 @@ class VoltageGPUBot:
         self.post_reddit()
     
     def display_status(self):
-        """Affiche le statut en temps réel"""
+        """Display real-time status in English"""
         now = datetime.now()
         uptime = now - self.daily_stats['start_time']
+        uptime_seconds = int(uptime.total_seconds())
         
-        print(f"\r🚀 VOLTAGEGPU BOT - LAUNCHER UNIFIÉ", end="")
-        print(f"\n⏰ {now.strftime('%H:%M:%S')} | Uptime: {str(uptime).split('.')[0]}")
+        # Clear screen and show header
+        print(f"\r🚀 VOLTAGEGPU BOT - UNIFIED LAUNCHER", end="")
+        print(f"\n⏰ {now.strftime('%H:%M:%S')} | Uptime: {uptime_seconds}s")
         
-        print(f"\n📊 POSTS AUJOURD'HUI:")
+        # Account Status
+        print(f"\n🔗 ACCOUNT STATUS:")
+        
+        # Twitter accounts
+        for i, twitter_data in enumerate(self.twitter_clients):
+            config = twitter_data['config']
+            status = "🟢 ACTIVE" if config['posts_today'] < 20 else "🟡 LIMIT REACHED"
+            print(f"   🐦 Twitter{i+1}: {status} ({config['posts_today']}/20 posts)")
+        
+        # Telegram
+        if self.telegram_bot:
+            status = "🟢 ACTIVE" if self.telegram_config['posts_today'] < 30 else "🟡 LIMIT REACHED"
+            channels_count = len(self.telegram_config['channels'])
+            print(f"   💬 Telegram: {status} ({self.telegram_config['posts_today']}/30 posts, {channels_count} channels)")
+        else:
+            print(f"   💬 Telegram: 🔴 DISCONNECTED")
+        
+        # Reddit accounts
+        for i, reddit_data in enumerate(self.reddit_clients):
+            config = reddit_data['config']
+            banned_count = len(config['banned_subreddits'])
+            if banned_count > 5:
+                status = "🔴 MANY BANS"
+            elif banned_count > 0:
+                status = f"🟡 {banned_count} BANS"
+            else:
+                status = "🟢 HEALTHY"
+            print(f"   📍 Reddit{i+1} ({config['username']}): {status} ({config['posts_today']} posts)")
+        
+        print(f"\n📊 TODAY'S POSTS:")
         print(f"   🐦 Twitter: {self.daily_stats['twitter_posts']}")
         print(f"   💬 Telegram: {self.daily_stats['telegram_posts']}")
         print(f"   📍 Reddit: {self.daily_stats['reddit_posts']}")
         print(f"   📈 TOTAL: {self.daily_stats['total_posts']}")
         
-        print(f"\n⏰ PROCHAINS POSTS:")
+        print(f"\n⏰ NEXT POSTS:")
         
-        # Twitter
+        # Twitter timers
         for twitter_data in self.twitter_clients:
             config = twitter_data['config']
             if config['next_post_time']:
                 time_left = config['next_post_time'] - now
                 if time_left.total_seconds() > 0:
-                    minutes = int(time_left.total_seconds() // 60)
-                    print(f"   🐦 {config['name']}: {minutes:02d}min ({config['posts_today']}/20)")
+                    seconds = int(time_left.total_seconds())
+                    print(f"   🐦 {config['name']}: {seconds}s ({config['posts_today']}/20)")
                 else:
-                    print(f"   🐦 {config['name']}: PRÊT ({config['posts_today']}/20)")
+                    print(f"   🐦 {config['name']}: READY ({config['posts_today']}/20)")
         
-        # Telegram
+        # Telegram timer
         if self.telegram_config['next_post_time']:
             time_left = self.telegram_config['next_post_time'] - now
             if time_left.total_seconds() > 0:
-                minutes = int(time_left.total_seconds() // 60)
-                print(f"   💬 Telegram: {minutes:02d}min ({self.telegram_config['posts_today']}/30)")
+                seconds = int(time_left.total_seconds())
+                print(f"   💬 Telegram: {seconds}s ({self.telegram_config['posts_today']}/30)")
             else:
-                print(f"   💬 Telegram: PRÊT ({self.telegram_config['posts_today']}/30)")
+                print(f"   💬 Telegram: READY ({self.telegram_config['posts_today']}/30)")
         
-        # Reddit
+        # Reddit timer
         time_left = self.reddit_next_post - now
         if time_left.total_seconds() > 0:
-            minutes = int(time_left.total_seconds() // 60)
-            print(f"   📍 Reddit: {minutes:02d}min")
+            seconds = int(time_left.total_seconds())
+            print(f"   📍 Reddit: {seconds}s")
         else:
-            print(f"   📍 Reddit: PRÊT")
+            print(f"   📍 Reddit: READY")
         
-        # Top subreddits
+        # Top performing subreddits
         active_subs = [(k, v['posts_today']) for k, v in self.target_subreddits.items() if v['posts_today'] > 0]
         if active_subs:
             active_subs.sort(key=lambda x: x[1], reverse=True)
@@ -644,8 +675,8 @@ class VoltageGPUBot:
             for sub, posts in active_subs[:3]:
                 print(f"   r/{sub}: {posts} posts")
         
-        print(f"\n💰 CODE: {self.affiliate_code}")
-        print("🛑 Ctrl+C pour arrêter" + " " * 20, end="")
+        print(f"\n💰 AFFILIATE CODE: {self.affiliate_code}")
+        print("🛑 Ctrl+C to stop" + " " * 20, end="")
         
     def reset_daily_counters(self):
         """Reset quotidien à minuit"""
