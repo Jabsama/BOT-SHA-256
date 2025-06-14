@@ -1,17 +1,20 @@
-# 🤖 VoltageGPU Bot Dependencies
+# VoltageGPU Bot - Production Dependencies
 
-# Core dependencies
+# Core Dependencies
 python-dotenv==1.0.0
 requests==2.31.0
 schedule==1.2.0
 
-# Social media APIs
+# Social Media APIs
 tweepy==4.14.0
-python-telegram-bot==20.7
 praw==7.7.1
+python-telegram-bot==20.7
 
-# Data processing
-Pillow==10.1.0
+# Data Processing
+asyncio-mqtt==0.16.1
 
-# Optional: For enhanced logging
-colorlog==6.8.0
+# Development Dependencies (optional)
+# Uncomment for development
+# black==23.12.1
+# pytest==7.4.3
+# flake8==6.1.0

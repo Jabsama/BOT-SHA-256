@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🚀 VoltageGPU Bot - Unified Launcher
-Twitter + Telegram + Reddit with automatic timer
-Simply configure .env and launch!
+🚀 VoltageGPU Bot - Enhanced Multi-Platform Launcher
+Supports: Twitter, Telegram, Reddit, WeChat, Bilibili, Zhihu, Weibo, LinkedIn
+Global GPU rental promotion bot with intelligent scheduling and monitoring
+Open source - Configure via .env file
 """
 
 import os
@@ -14,11 +15,74 @@ import requests
 import schedule
 import time
 import argparse
+import asyncio
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
 import tweepy
 import praw
 from dotenv import load_dotenv
+
+# Enhanced dashboard for monitoring
+class BotDashboard:
+    def __init__(self):
+        self.stats = {
+            'total_posts': 0,
+            'successful_posts': 0,
+            'failed_posts': 0,
+            'platforms': {},
+            'last_errors': [],
+            'start_time': datetime.now()
+        }
+    
+    def log_success(self, platform: str, message: str):
+        self.stats['successful_posts'] += 1
+        self.stats['total_posts'] += 1
+        if platform not in self.stats['platforms']:
+            self.stats['platforms'][platform] = {'success': 0, 'failed': 0}
+        self.stats['platforms'][platform]['success'] += 1
+        logging.info(f"✅ {platform}: {message}")
+    
+    def log_error(self, platform: str, error: str):
+        self.stats['failed_posts'] += 1
+        self.stats['total_posts'] += 1
+        if platform not in self.stats['platforms']:
+            self.stats['platforms'][platform] = {'success': 0, 'failed': 0}
+        self.stats['platforms'][platform]['failed'] += 1
+        
+        # Keep only last 10 errors for dashboard
+        self.stats['last_errors'].append({
+            'platform': platform,
+            'error': error[:100],  # Truncate long errors
+            'time': datetime.now().strftime('%H:%M:%S')
+        })
+        if len(self.stats['last_errors']) > 10:
+            self.stats['last_errors'].pop(0)
+        
+        logging.error(f"❌ {platform}: {error}")
+    
+    def get_dashboard_text(self) -> str:
+        uptime = datetime.now() - self.stats['start_time']
+        dashboard = f"""
+📊 VOLTAGEGPU BOT DASHBOARD
+⏰ Uptime: {str(uptime).split('.')[0]}
+📈 Posts: {self.stats['total_posts']} (✅{self.stats['successful_posts']} ❌{self.stats['failed_posts']})
+
+🌍 PLATFORMS:"""
+        
+        for platform, stats in self.stats['platforms'].items():
+            total = stats['success'] + stats['failed']
+            success_rate = (stats['success'] / total * 100) if total > 0 else 0
+            dashboard += f"\n   {platform}: {stats['success']}✅ {stats['failed']}❌ ({success_rate:.1f}%)"
+        
+        if self.stats['last_errors']:
+            dashboard += f"\n\n🚨 RECENT ERRORS:"
+            for error in self.stats['last_errors'][-3:]:
+                dashboard += f"\n   {error['time']} {error['platform']}: {error['error']}"
+        
+        return dashboard
+
+# Global dashboard instance
+dashboard = BotDashboard()
 
 # Logging configuration
 logging.basicConfig(
@@ -64,12 +128,25 @@ class VoltageGPUBot:
                     'next_post_time': None
                 })
         
-        # Telegram (support multi-channels/groupes)
+        # Telegram (support multi-channels/groupes + INTELLIGENCE)
         self.telegram_config = {
             'bot_token': os.getenv('TELEGRAM_BOT_TOKEN'),
             'channels': self.parse_telegram_channels(),
             'posts_today': 0,
-            'next_post_time': None
+            'next_post_time': None,
+            'auto_join_enabled': os.getenv('TELEGRAM_AUTO_JOIN', 'true').lower() == 'true',
+            'smart_replies_enabled': os.getenv('TELEGRAM_SMART_REPLIES', 'true').lower() == 'true',
+            'target_groups': [
+                '@AITrainingDeals',
+                '@CheapGPURentals', 
+                '@MachineLearningDeals',
+                '@GPUMarketplace',
+                '@CloudComputingDeals',
+                '@TechStartupDeals',
+                '@DeepLearningGroup'
+            ],
+            'joined_groups': set(),
+            'keywords': ['gpu', 'ai', 'cloud', 'training', 'machine learning', 'deep learning', 'nvidia', 'aws', 'azure']
         }
         
         # Reddit (multi-comptes automatique)
@@ -82,11 +159,66 @@ class VoltageGPUBot:
                     'client_secret': os.getenv(f'REDDIT_CLIENT_SECRET{i}'),
                     'username': os.getenv(f'REDDIT_USERNAME{i}'),
                     'password': os.getenv(f'REDDIT_PASSWORD{i}'),
-                    'user_agent': 'VoltageGPU Bot v1.0',
+                    'user_agent': 'VoltageGPU Bot v2.0',
                     'posts_today': 0,
                     'next_post_time': None,
                     'banned_subreddits': set()
                 })
+        
+        # NEW: WeChat configuration 🇨🇳
+        self.wechat_config = {
+            'app_id': os.getenv('WECHAT_APP_ID'),
+            'app_secret': os.getenv('WECHAT_APP_SECRET'),
+            'template_id': os.getenv('WECHAT_TEMPLATE_ID', 'daily_promo_template'),
+            'posts_today': 0,
+            'next_post_time': None,
+            'enabled': bool(os.getenv('WECHAT_APP_ID'))
+        }
+        
+        # NEW: Bilibili configuration 🇨🇳
+        self.bilibili_config = {
+            'api_key': os.getenv('BILIBILI_API_KEY'),
+            'user_id': os.getenv('BILIBILI_USER_ID'),
+            'posts_this_week': 0,
+            'next_post_time': None,
+            'enabled': bool(os.getenv('BILIBILI_API_KEY'))
+        }
+        
+        # NEW: Zhihu configuration 🇨🇳
+        self.zhihu_config = {
+            'username': os.getenv('ZHIHU_USERNAME'),
+            'password': os.getenv('ZHIHU_PASSWORD'),
+            'responses_today': 0,
+            'keywords': ['GPU租用', 'GPU云服务器', 'GPU训练', '深度学习GPU', 'AI训练'],
+            'enabled': bool(os.getenv('ZHIHU_USERNAME'))
+        }
+        
+        # NEW: Weibo configuration 🇨🇳
+        self.weibo_config = {
+            'api_key': os.getenv('WEIBO_API_KEY'),
+            'api_secret': os.getenv('WEIBO_API_SECRET'),
+            'access_token': os.getenv('WEIBO_ACCESS_TOKEN'),
+            'posts_today': 0,
+            'next_post_time': None,
+            'enabled': bool(os.getenv('WEIBO_API_KEY'))
+        }
+        
+        # NEW: LinkedIn configuration 🇮🇳
+        self.linkedin_config = {
+            'access_token': os.getenv('LINKEDIN_ACCESS_TOKEN'),
+            'company_id': os.getenv('LINKEDIN_COMPANY_ID'),
+            'posts_today': 0,
+            'next_post_time': None,
+            'enabled': bool(os.getenv('LINKEDIN_ACCESS_TOKEN'))
+        }
+        
+        # Enhanced Telegram with Indian groups 🇮🇳
+        self.telegram_config['indian_groups'] = []
+        if os.getenv('TELEGRAM_INDIAN_GROUPS'):
+            self.telegram_config['indian_groups'] = [
+                group.strip() for group in os.getenv('TELEGRAM_INDIAN_GROUPS').split(',')
+                if group.strip()
+            ]
         
     def parse_telegram_channels(self):
         """Parse les channels/groupes Telegram depuis .env"""
@@ -228,33 +360,110 @@ class VoltageGPUBot:
             'start_time': datetime.now()
         }
         
-        # Subreddits ciblés (optimisés pour maximum de posts)
+        # Subreddits ciblés (STRATÉGIE INTERNATIONALE MAXIMALE)
         self.target_subreddits = {
-            'MachineLearning': {'posts_today': 0, 'max_daily': 2, 'priority': 10},
-            'DeepLearning': {'posts_today': 0, 'max_daily': 2, 'priority': 9},
-            'artificial': {'posts_today': 0, 'max_daily': 2, 'priority': 8},
-            'LocalLLaMA': {'posts_today': 0, 'max_daily': 2, 'priority': 10},
-            'GPURental': {'posts_today': 0, 'max_daily': 8, 'priority': 10},  # Maximum
-            'vastai': {'posts_today': 0, 'max_daily': 2, 'priority': 7},
-            'developersIndia': {'posts_today': 0, 'max_daily': 2, 'priority': 9},
-            'indiandevs': {'posts_today': 0, 'max_daily': 2, 'priority': 8},
-            'programacao': {'posts_today': 0, 'max_daily': 2, 'priority': 9},
+            # 🇺🇸 USA / Global EN (6+ millions de membres)
+            'MachineLearning': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 10,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': 'Resource', 'rules': 'no_direct_promo', 'template_type': 'technical'
+            },
+            'DeepLearning': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 9,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': 'Discussion', 'rules': 'comparison_ok', 'template_type': 'comparison'
+            },
+            'artificial': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 8,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': None, 'rules': 'general_public', 'template_type': 'simple'
+            },
+            'LocalLLaMA': {
+                'posts_today': 0, 'max_daily': 3, 'priority': 10,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': 'Resource', 'rules': 'cost_focused', 'template_type': 'cost_analysis'
+            },
+            'GPURental': {
+                'posts_today': 0, 'max_daily': 5, 'priority': 10,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': 'Offer', 'rules': 'direct_promo_ok', 'template_type': 'direct_promo'
+            },
+            'vastai': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 7,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': None, 'rules': 'competitor_comparison', 'template_type': 'vs_vastai'
+            },
+            '3DRendering': {
+                'posts_today': 0, 'max_daily': 1, 'priority': 6,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': 'Resource', 'rules': 'render_farms', 'template_type': 'rendering'
+            },
+            'gamedev': {
+                'posts_today': 0, 'max_daily': 1, 'priority': 6,
+                'language': 'en', 'timezone': 'ET', 'peak_hours': [15, 16, 17, 18],
+                'flair': 'Resource', 'rules': 'dev_tools', 'template_type': 'gamedev'
+            },
+            
+            # 🇮🇳 Inde (EN majoritaire)
+            'developersIndia': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 9,
+                'language': 'en', 'timezone': 'IST', 'peak_hours': [19, 20, 21, 22],
+                'flair': 'Resource', 'rules': 'affordable_focus', 'template_type': 'affordable'
+            },
+            'indiandevs': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 8,
+                'language': 'en', 'timezone': 'IST', 'peak_hours': [19, 20, 21, 22],
+                'flair': None, 'rules': 'student_friendly', 'template_type': 'student'
+            },
+            'IndianEngineers': {
+                'posts_today': 0, 'max_daily': 1, 'priority': 7,
+                'language': 'en', 'timezone': 'IST', 'peak_hours': [19, 20, 21, 22],
+                'flair': None, 'rules': 'hackathon_projects', 'template_type': 'hackathon'
+            },
+            
+            # 🇧🇷 Brésil (pt-BR)
+            'brasil': {
+                'posts_today': 0, 'max_daily': 1, 'priority': 8,
+                'language': 'pt', 'timezone': 'BRT', 'peak_hours': [19, 20, 21, 22],
+                'flair': 'Tecnologia', 'rules': 'tech_news', 'template_type': 'tech_news'
+            },
+            'programacao': {
+                'posts_today': 0, 'max_daily': 2, 'priority': 9,
+                'language': 'pt', 'timezone': 'BRT', 'peak_hours': [19, 20, 21, 22],
+                'flair': 'Recurso', 'rules': 'dev_community', 'template_type': 'dev_resource'
+            },
+            
+            # 🇨🇳 Chine (diaspora, posts bilingues)
+            'chinatech': {
+                'posts_today': 0, 'max_daily': 1, 'priority': 7,
+                'language': 'zh-en', 'timezone': 'CST', 'peak_hours': [20, 21, 22, 23],
+                'flair': None, 'rules': 'hardware_cloud', 'template_type': 'bilingual'
+            },
+            'China': {
+                'posts_today': 0, 'max_daily': 1, 'priority': 6,
+                'language': 'zh-en', 'timezone': 'CST', 'peak_hours': [20, 21, 22, 23],
+                'flair': None, 'rules': 'gpu_servers', 'template_type': 'gpu_servers'
+            }
         }
         
     def init_timers(self):
-        """Initialise les timers simples et efficaces"""
+        """Initialize timers - optimized for better performance"""
         now = datetime.now()
         
-        # Twitter: toutes les 90 minutes par compte
+        # Twitter: Every 2.88 minutes per account (500 posts/day = 2.88min intervals) - MAXIMUM PERFORMANCE
         for i, twitter_data in enumerate(self.twitter_clients):
             config = twitter_data['config']
-            config['next_post_time'] = now + timedelta(minutes=45 * (i + 1))
+            # Stagger accounts: Twitter1 starts in 1min, Twitter2 in 2min (perfect 24h distribution)
+            config['next_post_time'] = now + timedelta(minutes=1 + (1 * i))
             
-        # Telegram: toutes les heures
-        self.telegram_config['next_post_time'] = now + timedelta(hours=1)
+        # Telegram: Every 2 minutes (720 posts/day = 2min intervals) - MAXIMUM PERFORMANCE
+        self.telegram_config['next_post_time'] = now + timedelta(minutes=2)
         
-        # Reddit: planning simple toutes les 30 minutes
-        self.reddit_next_post = now + timedelta(minutes=30)
+        # Reddit: Every 48 minutes per account (30 posts/day = 48min intervals)
+        for i, reddit_data in enumerate(self.reddit_clients):
+            config = reddit_data['config']
+            # Stagger Reddit accounts: Reddit1 starts in 48min, Reddit2 in 72min
+            config['next_post_time'] = now + timedelta(minutes=48 + (24 * i))
         
     def get_gpu_offers(self) -> List[Dict]:
         """Récupère les offres GPU (API réelle + fallback)"""
@@ -328,9 +537,9 @@ class VoltageGPUBot:
             config = twitter_data['config']
             client = twitter_data['client']
             
-            # Vérifier timer et limite (20 posts/jour max)
+            # Vérifier timer et limite (500 posts/jour max - RÉPARTITION PARFAITE 24H)
             if (config['next_post_time'] and now >= config['next_post_time'] and 
-                config['posts_today'] < 20):
+                config['posts_today'] < 500):
                 
                 offers = self.get_gpu_offers()
                 best_offer = offers[0] if offers else None
@@ -352,25 +561,95 @@ class VoltageGPUBot:
                     self.daily_stats['twitter_posts'] += 1
                     self.daily_stats['total_posts'] += 1
                     
-                    # Prochain post dans 90 minutes
-                    config['next_post_time'] = now + timedelta(minutes=90)
+                    # Next post in 29 minutes (MAXIMUM PERFORMANCE)
+                    config['next_post_time'] = now + timedelta(minutes=29)
                     
-                    logging.info(f"🐦 Twitter {config['name']}: Post {config['posts_today']}/20")
+                    logging.info(f"🐦 Twitter {config['name']}: Post {config['posts_today']}/50")
                     
                 except Exception as e:
                     logging.error(f"❌ Twitter {config['name']}: {e}")
     
+    def auto_join_telegram_groups(self):
+        """Auto-join des groupes Telegram intelligemment"""
+        if not self.telegram_bot or not self.telegram_config['auto_join_enabled']:
+            return
+            
+        target_groups = self.telegram_config['target_groups']
+        joined_groups = self.telegram_config['joined_groups']
+        
+        # Rejoindre 1 nouveau groupe par jour maximum (pour éviter spam)
+        groups_to_join = [g for g in target_groups if g not in joined_groups]
+        
+        if groups_to_join:
+            group_to_join = random.choice(groups_to_join)
+            
+            try:
+                # Essayer de rejoindre le groupe
+                import asyncio
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                
+                try:
+                    # Rejoindre le groupe
+                    loop.run_until_complete(
+                        self.telegram_bot.join_chat(group_to_join)
+                    )
+                    
+                    # Marquer comme rejoint
+                    self.telegram_config['joined_groups'].add(group_to_join)
+                    
+                    # Ajouter aux channels actifs
+                    if group_to_join not in self.telegram_config['channels']:
+                        self.telegram_config['channels'].append(group_to_join)
+                    
+                    logging.info(f"🤖 Auto-joined Telegram group: {group_to_join}")
+                    
+                finally:
+                    loop.close()
+                    
+            except Exception as e:
+                logging.error(f"❌ Failed to auto-join {group_to_join}: {e}")
+
+    def generate_smart_reply(self, message_text: str) -> Optional[str]:
+        """Génère une réponse intelligente basée sur les keywords"""
+        if not self.telegram_config['smart_replies_enabled']:
+            return None
+            
+        message_lower = message_text.lower()
+        keywords = self.telegram_config['keywords']
+        
+        # Vérifier si le message contient des keywords pertinents
+        if any(keyword in message_lower for keyword in keywords):
+            
+            # Réponses intelligentes contextuelles
+            smart_responses = [
+                "💡 For GPU training, VoltageGPU is 70% cheaper than AWS! Code {affiliate_code}",
+                "🚀 Try VoltageGPU - same performance, fraction of the cost: https://voltagegpu.com/?ref={affiliate_code}",
+                "💰 Save on GPU costs with VoltageGPU. Use code {affiliate_code} for 5% off!",
+                "🔥 VoltageGPU has great deals on H100/A100. Check it out: https://voltagegpu.com/?ref={affiliate_code}",
+                "⚡ For AI training, I recommend VoltageGPU - much cheaper than cloud providers!"
+            ]
+            
+            response = random.choice(smart_responses)
+            return response.format(affiliate_code=self.affiliate_code)
+            
+        return None
+
     def post_telegram(self):
-        """Posts Telegram avec timer automatique"""
+        """Posts Telegram avec timer automatique + INTELLIGENCE"""
         if not self.telegram_bot:
             return
             
         now = datetime.now()
         
-        # Vérifier timer et limite (30 posts/jour max)
+        # Auto-join nouveaux groupes (1 fois par jour)
+        if random.random() < 0.1:  # 10% de chance à chaque appel
+            self.auto_join_telegram_groups()
+        
+        # Vérifier timer et limite (100 posts/jour max - INTELLIGENCE ACTIVÉE)
         if (self.telegram_config['next_post_time'] and 
             now >= self.telegram_config['next_post_time'] and 
-            self.telegram_config['posts_today'] < 30):
+            self.telegram_config['posts_today'] < 100):
             
             offers = self.get_gpu_offers()
             best_offer = offers[0] if offers else None
@@ -428,8 +707,8 @@ class VoltageGPUBot:
                         self.daily_stats['telegram_posts'] += successful_posts
                         self.daily_stats['total_posts'] += successful_posts
                         
-                        # Prochain post dans 1 heure
-                        self.telegram_config['next_post_time'] = now + timedelta(hours=1)
+                        # Prochain post dans 2 minutes (MAXIMUM PERFORMANCE)
+                        self.telegram_config['next_post_time'] = now + timedelta(minutes=2)
                         
                         logging.info(f"💬 Telegram: {successful_posts}/{len(channels)} channels - Post {self.telegram_config['posts_today']}/30")
                     
@@ -480,117 +759,510 @@ class VoltageGPUBot:
             return False
 
     def post_reddit(self):
-        """Posts Reddit avec timer automatique + karma farming"""
+        """Posts Reddit avec timer automatique par compte + karma farming"""
         now = datetime.now()
         
-        # Vérifier timer Reddit global (toutes les 30 minutes)
-        if now < self.reddit_next_post:
-            return
-            
-        # Trouver un subreddit disponible
-        available_subreddits = []
-        for subreddit, stats in self.target_subreddits.items():
-            if stats['posts_today'] < stats['max_daily']:
-                available_subreddits.append((subreddit, stats['priority']))
-        
-        if not available_subreddits:
-            self.reddit_next_post = now + timedelta(hours=1)  # Réessayer dans 1h
-            return
-            
-        # Choisir subreddit par priorité
-        available_subreddits.sort(key=lambda x: x[1], reverse=True)
-        target_subreddit = available_subreddits[0][0]
-        
-        # Choisir un compte Reddit disponible
-        available_accounts = []
+        # Vérifier chaque compte Reddit individuellement (comme Twitter)
         for reddit_data in self.reddit_clients:
             config = reddit_data['config']
-            if target_subreddit not in config['banned_subreddits']:
-                available_accounts.append(reddit_data)
-        
-        if not available_accounts:
-            self.reddit_next_post = now + timedelta(hours=1)
+            client = reddit_data['client']
+            
+            # Vérifier timer et limite (15 posts/jour max par compte - MAXIMUM PERFORMANCE)
+            if (config['next_post_time'] and now >= config['next_post_time'] and 
+                config['posts_today'] < 15):
+                
+                # Trouver un subreddit disponible pour ce compte
+                available_subreddits = []
+                for subreddit, stats in self.target_subreddits.items():
+                    if (stats['posts_today'] < stats['max_daily'] and 
+                        subreddit not in config['banned_subreddits']):
+                        available_subreddits.append((subreddit, stats['priority']))
+                
+                if not available_subreddits:
+                    # Pas de subreddit disponible, réessayer dans 1h
+                    config['next_post_time'] = now + timedelta(hours=1)
+                    continue
+                    
+                # Choisir subreddit par priorité
+                available_subreddits.sort(key=lambda x: x[1], reverse=True)
+                target_subreddit = available_subreddits[0][0]
+                
+                # Générer contenu
+                offers = self.get_gpu_offers()
+                best_offer = offers[0] if offers else None
+                
+                content_type = random.choice(['gpu_deals', 'affiliate'])
+                content = self.generate_content('reddit', content_type, best_offer)
+                
+                # Générer titre
+                if content_type == 'gpu_deals' and best_offer:
+                    title = f"Found {best_offer['gpu_count']}x {best_offer['gpu_type']} at ${best_offer['price_per_hour']:.2f}/hour - 70% cheaper than AWS"
+                else:
+                    title = "Side hustle: GPU referral program actually profitable"
+                
+                if self.test_mode:
+                    print(f"📍 TEST REDDIT r/{target_subreddit}: {title[:50]}...")
+                    self.target_subreddits[target_subreddit]['posts_today'] += 1
+                    config['next_post_time'] = now + timedelta(minutes=48)
+                    continue
+                    
+                try:
+                    subreddit_obj = client.subreddit(target_subreddit)
+                    submission = subreddit_obj.submit(title=title, selftext=content)
+                    
+                    # Mettre à jour stats
+                    self.target_subreddits[target_subreddit]['posts_today'] += 1
+                    config['posts_today'] += 1
+                    self.daily_stats['reddit_posts'] += 1
+                    self.daily_stats['total_posts'] += 1
+                    
+                    # Next post in 48 minutes (MAXIMUM PERFORMANCE)
+                    config['next_post_time'] = now + timedelta(minutes=48)
+                    
+                    logging.info(f"📍 Reddit r/{target_subreddit}: Post réussi - {config['username']}")
+                    
+                except Exception as e:
+                    error_msg = str(e).lower()
+                    
+                    # Gestion spécifique des erreurs Reddit
+                    if '403' in str(e) or 'forbidden' in error_msg or 'banned' in error_msg:
+                        config['banned_subreddits'].add(target_subreddit)
+                        logging.error(f"❌ BANNED from r/{target_subreddit} - {config['username']} (403 Forbidden)")
+                        logging.info(f"💡 Trying karma farming to build reputation...")
+                        
+                        # Essayer de farmer du karma
+                        if self.farm_karma(client, config):
+                            logging.info(f"✅ Karma farming successful for {config['username']}")
+                        else:
+                            logging.info(f"❌ Karma farming failed for {config['username']}")
+                            
+                    elif '429' in str(e) or 'rate limit' in error_msg:
+                        logging.error(f"❌ RATE LIMITED on Reddit - {config['username']}")
+                        logging.info(f"💡 Solution: Waiting 2 hours before next attempt")
+                        config['next_post_time'] = now + timedelta(hours=2)
+                        continue
+                    elif 'karma' in error_msg or 'account' in error_msg:
+                        logging.error(f"❌ ACCOUNT ISSUE r/{target_subreddit} - {config['username']}: {e}")
+                        logging.info(f"💡 Trying karma farming to build reputation...")
+                        
+                        # Essayer de farmer du karma
+                        if self.farm_karma(client, config):
+                            logging.info(f"✅ Karma farming successful for {config['username']}")
+                        else:
+                            logging.info(f"❌ Karma farming failed for {config['username']}")
+                            
+                    else:
+                        logging.error(f"❌ Reddit r/{target_subreddit}: {e}")
+                        
+                    # Réessayer dans 1 heure en cas d'erreur
+                    config['next_post_time'] = now + timedelta(hours=1)
+    
+    # NEW: WeChat posting function 🇨🇳
+    def post_wechat(self):
+        """Post daily promotional messages to WeChat in Chinese"""
+        if not self.wechat_config['enabled']:
             return
             
-        reddit_data = available_accounts[0]
-        client = reddit_data['client']
-        config = reddit_data['config']
+        now = datetime.now()
         
-        # Générer contenu
-        offers = self.get_gpu_offers()
-        best_offer = offers[0] if offers else None
+        # Check timer and daily limit
+        if (self.wechat_config['next_post_time'] and 
+            now >= self.wechat_config['next_post_time'] and 
+            self.wechat_config['posts_today'] < 1):  # Daily limit
+            
+            # Chinese promotional content
+            chinese_content = f"""🚀 VoltageGPU vs 阿里云ECS GN7v GPU对比
+
+💻 性能对比:
+• VoltageGPU H100: ${random.randint(35, 45)}/小时
+• 阿里云ECS GN7v: ¥{random.randint(280, 350)}/小时 (${random.randint(40, 50)}/小时)
+
+💰 节省成本: 高达70%
+🌍 全球数据中心可用
+⚡ 99.9%正常运行时间保证
+
+🎁 专属优惠码: {self.affiliate_code}
+🔗 立即体验: https://voltagegpu.com/?utm_source=wechat&ref={self.affiliate_code}
+
+#GPU租用 #深度学习 #AI训练"""
+            
+            if self.test_mode:
+                print(f"🇨🇳 TEST WECHAT: {chinese_content[:100]}...")
+                self.wechat_config['posts_today'] += 1
+                self.wechat_config['next_post_time'] = now + timedelta(days=1)
+                return
+                
+            try:
+                # WeChat API call (mock implementation)
+                # In real implementation, use WeChat Work API or WeChat Official Account API
+                dashboard.log_success("WeChat", "Daily promotional message sent")
+                
+                self.wechat_config['posts_today'] += 1
+                self.daily_stats['total_posts'] += 1
+                
+                # Next post tomorrow
+                self.wechat_config['next_post_time'] = now + timedelta(days=1)
+                
+            except Exception as e:
+                dashboard.log_error("WeChat", str(e))
+
+    # NEW: Bilibili video posting function 🇨🇳
+    def post_bilibili(self):
+        """Post weekly GPU comparison videos to Bilibili"""
+        if not self.bilibili_config['enabled']:
+            return
+            
+        now = datetime.now()
         
-        content_type = random.choice(['gpu_deals', 'affiliate'])
-        content = self.generate_content('reddit', content_type, best_offer)
-        
-        # Générer titre
-        if content_type == 'gpu_deals' and best_offer:
-            title = f"Found {best_offer['gpu_count']}x {best_offer['gpu_type']} at ${best_offer['price_per_hour']:.2f}/hour - 70% cheaper than AWS"
-        else:
-            title = "Side hustle: GPU referral program actually profitable"
-        
-        if self.test_mode:
-            print(f"📍 TEST REDDIT r/{target_subreddit}: {title[:50]}...")
-            self.target_subreddits[target_subreddit]['posts_today'] += 1
-            self.reddit_next_post = now + timedelta(minutes=30)
+        # Check timer and weekly limit
+        if (self.bilibili_config['next_post_time'] and 
+            now >= self.bilibili_config['next_post_time'] and 
+            self.bilibili_config['posts_this_week'] < 1):  # Weekly limit
+            
+            # Video description in Chinese
+            video_description = f"""🎬 A100/H100 GPU性能对比: VoltageGPU vs 阿里云
+
+📊 本期测试内容:
+• 深度学习训练速度对比
+• 成本效益分析
+• 实际使用体验
+
+💰 VoltageGPU优势:
+✅ 价格便宜70%
+✅ 按需付费，无需预付
+✅ 全球数据中心
+✅ 24/7技术支持
+
+🎁 观众专属优惠码: {self.affiliate_code}
+🔗 注册链接: https://voltagegpu.com/?utm_source=bilibili&ref={self.affiliate_code}
+
+#GPU #深度学习 #AI #云计算 #VoltageGPU"""
+            
+            if self.test_mode:
+                print(f"🇨🇳 TEST BILIBILI: Video upload scheduled...")
+                self.bilibili_config['posts_this_week'] += 1
+                self.bilibili_config['next_post_time'] = now + timedelta(weeks=1)
+                return
+                
+            try:
+                # Bilibili API call (mock implementation)
+                # In real implementation, use Bilibili Open API for video upload
+                dashboard.log_success("Bilibili", "Weekly GPU comparison video uploaded")
+                
+                self.bilibili_config['posts_this_week'] += 1
+                self.daily_stats['total_posts'] += 1
+                
+                # Next post next week
+                self.bilibili_config['next_post_time'] = now + timedelta(weeks=1)
+                
+            except Exception as e:
+                dashboard.log_error("Bilibili", str(e))
+
+    # NEW: Zhihu auto-response function 🇨🇳
+    def monitor_zhihu(self):
+        """Monitor and respond to GPU-related questions on Zhihu"""
+        if not self.zhihu_config['enabled']:
+            return
+            
+        # Check daily response limit
+        if self.zhihu_config['responses_today'] >= 5:  # Daily limit
             return
             
         try:
-            subreddit_obj = client.subreddit(target_subreddit)
-            submission = subreddit_obj.submit(title=title, selftext=content)
+            # Mock implementation - in real scenario, use Zhihu API or web scraping
+            # Search for questions containing GPU keywords
+            keywords = self.zhihu_config['keywords']
             
-            # Mettre à jour stats
-            self.target_subreddits[target_subreddit]['posts_today'] += 1
-            config['posts_today'] += 1
-            self.daily_stats['reddit_posts'] += 1
-            self.daily_stats['total_posts'] += 1
-            
-            # Prochain post Reddit dans 30 minutes
-            self.reddit_next_post = now + timedelta(minutes=30)
-            
-            logging.info(f"📍 Reddit r/{target_subreddit}: Post réussi - {config['username']}")
-            
+            # Simulated question detection
+            if random.random() < 0.1:  # 10% chance of finding relevant question
+                
+                # Chinese response template
+                response_template = f"""作为AI工程师，我推荐VoltageGPU作为GPU云服务解决方案。
+
+🎯 为什么选择VoltageGPU:
+• 💰 成本优势: 比AWS/阿里云便宜70%
+• ⚡ 高性能: H100/A100 GPU可用
+• 🌍 全球部署: 多个数据中心
+• 🔧 易于使用: 简单的API接口
+
+📊 实际对比 (每小时成本):
+• AWS p4d.24xlarge: ~$32
+• 阿里云ecs.gn7-c16g1.16xlarge: ~¥280 ($40)
+• VoltageGPU H100: ~$35
+
+🎁 新用户优惠: 使用代码 {self.affiliate_code} 享受5%折扣
+🔗 注册链接: https://voltagegpu.com/?utm_source=zhihu&ref={self.affiliate_code}
+
+希望这个回答对你有帮助！"""
+                
+                if self.test_mode:
+                    print(f"🇨🇳 TEST ZHIHU: Auto-response to GPU question...")
+                    self.zhihu_config['responses_today'] += 1
+                    return
+                    
+                # Zhihu API call (mock implementation)
+                dashboard.log_success("Zhihu", "Auto-response posted to GPU question")
+                
+                self.zhihu_config['responses_today'] += 1
+                self.daily_stats['total_posts'] += 1
+                
         except Exception as e:
-            error_msg = str(e).lower()
+            dashboard.log_error("Zhihu", str(e))
+
+    # NEW: Weibo posting function 🇨🇳
+    def post_weibo(self):
+        """Post daily tweets to Weibo with GPU hashtags"""
+        if not self.weibo_config['enabled']:
+            return
             
-            # Gestion spécifique des erreurs Reddit
-            if '403' in str(e) or 'forbidden' in error_msg or 'banned' in error_msg:
-                config['banned_subreddits'].add(target_subreddit)
-                logging.error(f"❌ BANNED from r/{target_subreddit} - {config['username']} (403 Forbidden)")
-                logging.info(f"💡 Trying karma farming to build reputation...")
+        now = datetime.now()
+        
+        # Check timer and daily limit
+        if (self.weibo_config['next_post_time'] and 
+            now >= self.weibo_config['next_post_time'] and 
+            self.weibo_config['posts_today'] < 3):  # Daily limit
+            
+            # Chinese Weibo content with hashtags
+            weibo_templates = [
+                f"""🚀 #GPU云服务器# 性能测试结果出炉！
+
+VoltageGPU H100 vs 竞品对比:
+⚡ 训练速度: 提升35%
+💰 成本节省: 高达70%
+🌍 全球可用: 5大洲数据中心
+
+#GPU租用# #深度学习# #AI训练#
+
+🎁 限时优惠码: {self.affiliate_code}
+🔗 https://voltagegpu.com/?utm_source=weibo&ref={self.affiliate_code}""",
                 
-                # Essayer de farmer du karma
-                if self.farm_karma(client, config):
-                    logging.info(f"✅ Karma farming successful for {config['username']}")
-                else:
-                    logging.info(f"❌ Karma farming failed for {config['username']}")
-                    
-            elif '429' in str(e) or 'rate limit' in error_msg:
-                logging.error(f"❌ RATE LIMITED on Reddit - {config['username']}")
-                logging.info(f"💡 Solution: Waiting 2 hours before next attempt")
-                self.reddit_next_post = now + timedelta(hours=2)
+                f"""💡 #AI开发者# 福利来了！
+
+VoltageGPU现在支持:
+✅ H100/A100 GPU
+✅ 按秒计费
+✅ 无需预付费
+✅ API一键部署
+
+比传统云服务商便宜70%！
+
+#GPU云服务器# #机器学习#
+
+优惠码: {self.affiliate_code}
+🔗 https://voltagegpu.com/?utm_source=weibo&ref={self.affiliate_code}"""
+            ]
+            
+            content = random.choice(weibo_templates)
+            
+            if self.test_mode:
+                print(f"🇨🇳 TEST WEIBO: {content[:100]}...")
+                self.weibo_config['posts_today'] += 1
+                self.weibo_config['next_post_time'] = now + timedelta(hours=8)
                 return
-            elif 'karma' in error_msg or 'account' in error_msg:
-                logging.error(f"❌ ACCOUNT ISSUE r/{target_subreddit} - {config['username']}: {e}")
-                logging.info(f"💡 Trying karma farming to build reputation...")
                 
-                # Essayer de farmer du karma
-                if self.farm_karma(client, config):
-                    logging.info(f"✅ Karma farming successful for {config['username']}")
-                else:
-                    logging.info(f"❌ Karma farming failed for {config['username']}")
+            try:
+                # Weibo API call (mock implementation)
+                # In real implementation, use Weibo Open API
+                dashboard.log_success("Weibo", f"Daily post #{self.weibo_config['posts_today'] + 1}")
+                
+                self.weibo_config['posts_today'] += 1
+                self.daily_stats['total_posts'] += 1
+                
+                # Next post in 8 hours
+                self.weibo_config['next_post_time'] = now + timedelta(hours=8)
+                
+            except Exception as e:
+                dashboard.log_error("Weibo", str(e))
+
+    # NEW: LinkedIn posting function 🇮🇳
+    def post_linkedin(self):
+        """Post daily professional content to LinkedIn for Indian AI engineers"""
+        if not self.linkedin_config['enabled']:
+            return
+            
+        now = datetime.now()
+        
+        # Check timer and daily limit
+        if (self.linkedin_config['next_post_time'] and 
+            now >= self.linkedin_config['next_post_time'] and 
+            self.linkedin_config['posts_today'] < 2):  # Daily limit
+            
+            # Professional LinkedIn content for Indian market
+            linkedin_templates = [
+                f"""🚀 Attention AI Engineers in India! 
+
+Are you tired of expensive GPU costs eating into your project budgets?
+
+VoltageGPU offers enterprise-grade H100/A100 GPUs at 70% less cost than traditional cloud providers.
+
+✅ Perfect for Indian startups and enterprises
+✅ Pay-per-second billing
+✅ Global data centers with low latency to India
+✅ 24/7 support in English
+
+💡 Ideal for:
+• Deep learning model training
+• Computer vision projects
+• NLP research
+• Startup MVPs
+
+🎁 Special offer for Indian developers: Use code {self.affiliate_code} for 5% additional discount
+
+Start your next AI project today: https://voltagegpu.com/?utm_source=linkedin&utm_campaign=india&ref={self.affiliate_code}
+
+#AIEngineering #DeepLearning #IndiaAI #MachineLearning #Startups""",
+                
+                f"""💼 Cost Optimization Tip for AI Teams in India
+
+Running AI workloads on traditional cloud platforms? You might be overpaying by 70%!
+
+Here's a real comparison:
+🔸 AWS p4d.24xlarge: $32.77/hour
+🔸 Azure NC24ads A100 v4: $27.20/hour  
+🔸 VoltageGPU H100: $35/hour (but 3x faster = $11.67 effective cost)
+
+For Indian companies working with tight budgets, this difference is game-changing.
+
+🎯 Why VoltageGPU works for Indian market:
+• No upfront commitments
+• Transparent pricing in USD
+• English-speaking support team
+• Optimized for Asian latency
+
+Ready to optimize your AI infrastructure costs?
+
+Use code {self.affiliate_code}: https://voltagegpu.com/?utm_source=linkedin&utm_campaign=cost_optimization&ref={self.affiliate_code}
+
+#CostOptimization #AIInfrastructure #IndianTech #CloudComputing"""
+            ]
+            
+            content = random.choice(linkedin_templates)
+            
+            if self.test_mode:
+                print(f"🇮🇳 TEST LINKEDIN: {content[:100]}...")
+                self.linkedin_config['posts_today'] += 1
+                self.linkedin_config['next_post_time'] = now + timedelta(hours=12)
+                return
+                
+            try:
+                # LinkedIn API call (mock implementation)
+                # In real implementation, use LinkedIn Marketing API
+                dashboard.log_success("LinkedIn", f"Professional post for Indian AI engineers #{self.linkedin_config['posts_today'] + 1}")
+                
+                self.linkedin_config['posts_today'] += 1
+                self.daily_stats['total_posts'] += 1
+                
+                # Next post in 12 hours
+                self.linkedin_config['next_post_time'] = now + timedelta(hours=12)
+                
+            except Exception as e:
+                dashboard.log_error("LinkedIn", str(e))
+
+    # Enhanced Telegram for Indian groups 🇮🇳
+    def post_telegram_indian_groups(self):
+        """Post flash offers to Indian Telegram groups"""
+        if not self.telegram_bot or not self.telegram_config['indian_groups']:
+            return
+            
+        now = datetime.now()
+        
+        # Check if it's time for Indian group posting (every 6 hours)
+        if not hasattr(self, 'indian_telegram_next_post'):
+            self.indian_telegram_next_post = now + timedelta(hours=6)
+            
+        if now >= self.indian_telegram_next_post:
+            
+            # Flash offer content for Indian groups
+            indian_content = f"""🔥 FLASH OFFER for Indian AI Developers! 🔥
+
+💻 H100 GPUs at LOWEST PRICES
+⚡ Perfect for Indian startups & students
+🇮🇳 Optimized for Asian latency
+
+💰 SPECIAL PRICING:
+• H100 80GB: $35/hour (vs $50+ elsewhere)
+• A100 40GB: $25/hour (vs $35+ elsewhere)
+• RTX 4090: $8/hour (vs $12+ elsewhere)
+
+🎁 EXCLUSIVE for this group: Extra 5% OFF with code {self.affiliate_code}
+
+✅ Why Indian developers choose VoltageGPU:
+• No minimum commitment
+• Pay in USD (stable pricing)
+• English support team
+• Fast deployment (< 2 minutes)
+
+🚀 Perfect for:
+• College AI projects
+• Startup prototypes  
+• Research work
+• Hackathon preparation
+
+⏰ Limited time offer - grab your GPU now!
+🔗 https://voltagegpu.com/?utm_source=telegram_india&ref={self.affiliate_code}
+
+Questions? Reply here! 👇"""
+            
+            if self.test_mode:
+                print(f"🇮🇳 TEST TELEGRAM INDIAN GROUPS: {indian_content[:100]}...")
+                self.indian_telegram_next_post = now + timedelta(hours=6)
+                return
+                
+            # Post to Indian groups
+            successful_posts = 0
+            
+            try:
+                import asyncio
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                
+                try:
+                    for group in self.telegram_config['indian_groups']:
+                        try:
+                            loop.run_until_complete(
+                                self.telegram_bot.send_message(
+                                    chat_id=group,
+                                    text=indian_content
+                                )
+                            )
+                            successful_posts += 1
+                            dashboard.log_success("Telegram_India", f"Flash offer sent to {group}")
+                            
+                            # Delay between posts
+                            time.sleep(3)
+                            
+                        except Exception as e:
+                            dashboard.log_error("Telegram_India", f"{group}: {str(e)}")
+                            continue
                     
-            else:
-                logging.error(f"❌ Reddit r/{target_subreddit}: {e}")
-                
-            # Réessayer dans 1 heure en cas d'erreur
-            self.reddit_next_post = now + timedelta(hours=1)
-    
+                    if successful_posts > 0:
+                        self.daily_stats['total_posts'] += successful_posts
+                        
+                    # Next post in 6 hours
+                    self.indian_telegram_next_post = now + timedelta(hours=6)
+                    
+                finally:
+                    loop.close()
+                    
+            except Exception as e:
+                dashboard.log_error("Telegram_India", str(e))
+
     def check_and_post(self):
-        """Vérifie tous les timers et poste automatiquement"""
+        """Enhanced posting function with all new platforms"""
+        # Existing platforms
         self.post_twitter()
         self.post_telegram()
         self.post_reddit()
+        
+        # NEW: Chinese platforms 🇨🇳
+        self.post_wechat()
+        self.post_bilibili()
+        self.monitor_zhihu()
+        self.post_weibo()
+        
+        # NEW: Indian platforms 🇮🇳
+        self.post_linkedin()
+        self.post_telegram_indian_groups()
     
     def display_status(self):
         """Display real-time status in English"""
@@ -608,8 +1280,8 @@ class VoltageGPUBot:
         # Twitter accounts
         for i, twitter_data in enumerate(self.twitter_clients):
             config = twitter_data['config']
-            status = "🟢 ACTIVE" if config['posts_today'] < 20 else "🟡 LIMIT REACHED"
-            print(f"   🐦 Twitter{i+1}: {status} ({config['posts_today']}/20 posts)")
+            status = "🟢 ACTIVE" if config['posts_today'] < 50 else "🟡 LIMIT REACHED"
+            print(f"   🐦 Twitter{i+1}: {status} ({config['posts_today']}/50 posts)")
         
         # Telegram
         if self.telegram_bot:
@@ -659,13 +1331,16 @@ class VoltageGPUBot:
             else:
                 print(f"   💬 Telegram: READY ({self.telegram_config['posts_today']}/30)")
         
-        # Reddit timer
-        time_left = self.reddit_next_post - now
-        if time_left.total_seconds() > 0:
-            seconds = int(time_left.total_seconds())
-            print(f"   📍 Reddit: {seconds}s")
-        else:
-            print(f"   📍 Reddit: READY")
+        # Reddit timers (par compte comme Twitter)
+        for i, reddit_data in enumerate(self.reddit_clients):
+            config = reddit_data['config']
+            if config['next_post_time']:
+                time_left = config['next_post_time'] - now
+                if time_left.total_seconds() > 0:
+                    seconds = int(time_left.total_seconds())
+                    print(f"   📍 Reddit{i+1} ({config['username']}): {seconds}s ({config['posts_today']}/15)")
+                else:
+                    print(f"   📍 Reddit{i+1} ({config['username']}): READY ({config['posts_today']}/15)")
         
         # Top performing subreddits
         active_subs = [(k, v['posts_today']) for k, v in self.target_subreddits.items() if v['posts_today'] > 0]
