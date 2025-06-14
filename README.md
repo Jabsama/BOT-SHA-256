@@ -97,6 +97,28 @@ python launch_bot.py
 - **LinkedIn Marketing API** - Professional network
 - **Weibo API** - Chinese social media
 
+### 🇨🇳 Chinese Platforms Setup
+For WeChat, Bilibili, Zhihu, and Weibo integration, you may need a Chinese IP address. We recommend using our **FREE VPN solution**:
+
+**🚀 [FREE-VPN - China Solution](https://github.com/Jabsama/FREE-VPN)**
+- ✅ **2-second installation** on Windows
+- ✅ **Optimized for WeChat** SMS verification
+- ✅ **Perfect for bot development** outside China
+- ✅ **100% Open Source** and completely free
+- ✅ **Supports all Chinese platforms** (WeChat, Bilibili, Zhihu, Weibo)
+
+**Quick Setup:**
+```bash
+# 1. Download FREE-VPN
+git clone https://github.com/Jabsama/FREE-VPN.git
+
+# 2. Windows: Right-click "ONE-CLICK-VPN.bat" → "Run as administrator"
+# 3. Linux/macOS: sudo ./scripts/setup-linux.sh
+# 4. Test: Visit https://mp.weixin.qq.com/
+```
+
+This VPN enables **+$3,375/month additional revenue** from Chinese market penetration!
+
 ## 💰 Revenue Potential
 
 ### Conservative Estimate
