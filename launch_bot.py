@@ -450,11 +450,11 @@ class VoltageGPUBot:
         """Initialize timers - optimized for better performance"""
         now = datetime.now()
         
-        # Twitter: Every 2.88 minutes per account (500 posts/day = 2.88min intervals) - MAXIMUM PERFORMANCE
+        # Twitter: Every 89 minutes per account (500 posts/month = 89min intervals) - REALISTIC LIMITS
         for i, twitter_data in enumerate(self.twitter_clients):
             config = twitter_data['config']
-            # Stagger accounts: Twitter1 starts in 1min, Twitter2 in 2min (perfect 24h distribution)
-            config['next_post_time'] = now + timedelta(minutes=1 + (1 * i))
+            # Stagger accounts: Twitter1 starts in 30min, Twitter2 in 60min (monthly distribution)
+            config['next_post_time'] = now + timedelta(minutes=30 + (30 * i))
             
         # Telegram: Every 2 minutes (720 posts/day = 2min intervals) - MAXIMUM PERFORMANCE
         self.telegram_config['next_post_time'] = now + timedelta(minutes=2)
@@ -537,9 +537,9 @@ class VoltageGPUBot:
             config = twitter_data['config']
             client = twitter_data['client']
             
-            # Vérifier timer et limite (500 posts/jour max - RÉPARTITION PARFAITE 24H)
+            # Vérifier timer et limite (500 posts/MOIS max - LIMITES RÉALISTES TWITTER)
             if (config['next_post_time'] and now >= config['next_post_time'] and 
-                config['posts_today'] < 500):
+                config['posts_today'] < 17):  # 500/30 jours = ~17 posts/jour max
                 
                 offers = self.get_gpu_offers()
                 best_offer = offers[0] if offers else None
@@ -561,10 +561,10 @@ class VoltageGPUBot:
                     self.daily_stats['twitter_posts'] += 1
                     self.daily_stats['total_posts'] += 1
                     
-                    # Next post in 29 minutes (MAXIMUM PERFORMANCE)
-                    config['next_post_time'] = now + timedelta(minutes=29)
+                    # Next post in 89 minutes (REALISTIC TWITTER LIMITS)
+                    config['next_post_time'] = now + timedelta(minutes=89)
                     
-                    logging.info(f"🐦 Twitter {config['name']}: Post {config['posts_today']}/50")
+                    logging.info(f"🐦 Twitter {config['name']}: Post {config['posts_today']}/17")
                     
                 except Exception as e:
                     logging.error(f"❌ Twitter {config['name']}: {e}")
@@ -1280,8 +1280,8 @@ Questions? Reply here! 👇"""
         # Twitter accounts
         for i, twitter_data in enumerate(self.twitter_clients):
             config = twitter_data['config']
-            status = "🟢 ACTIVE" if config['posts_today'] < 50 else "🟡 LIMIT REACHED"
-            print(f"   🐦 Twitter{i+1}: {status} ({config['posts_today']}/50 posts)")
+            status = "🟢 ACTIVE" if config['posts_today'] < 17 else "🟡 LIMIT REACHED"
+            print(f"   🐦 Twitter{i+1}: {status} ({config['posts_today']}/17 posts)")
         
         # Telegram
         if self.telegram_bot:
@@ -1318,9 +1318,9 @@ Questions? Reply here! 👇"""
                 time_left = config['next_post_time'] - now
                 if time_left.total_seconds() > 0:
                     seconds = int(time_left.total_seconds())
-                    print(f"   🐦 {config['name']}: {seconds}s ({config['posts_today']}/20)")
+                    print(f"   🐦 {config['name']}: {seconds}s ({config['posts_today']}/17)")
                 else:
-                    print(f"   🐦 {config['name']}: READY ({config['posts_today']}/20)")
+                    print(f"   🐦 {config['name']}: READY ({config['posts_today']}/17)")
         
         # Telegram timer
         if self.telegram_config['next_post_time']:

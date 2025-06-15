@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Platforms](https://img.shields.io/badge/platforms-8-green.svg)](#supported-platforms)
-[![Performance](https://img.shields.io/badge/posts-1700%2B%2Fday-red.svg)](#performance)
+[![Performance](https://img.shields.io/badge/posts-795%2B%2Fday-red.svg)](#performance)
 
 > **High-performance automated promotion bot for VoltageGPU affiliate marketing across 8 global platforms**
 
@@ -22,7 +22,7 @@ VoltageGPU Bot is a **high-performance automated marketing bot** designed to pro
 
 | Platform | Daily Posts | Target Audience | Language |
 |----------|-------------|-----------------|----------|
-| 🐦 **Twitter** | 1,000 posts | Global tech community | English |
+| 🐦 **Twitter** | 34 posts | Global tech community | English |
 | 💬 **Telegram** | 720 posts | Crypto/AI enthusiasts | English |
 | 📍 **Reddit** | 30 posts | Developers/Engineers | English |
 | 🇨🇳 **WeChat** | 1 post | Chinese tech market | Chinese |
@@ -31,7 +31,7 @@ VoltageGPU Bot is a **high-performance automated marketing bot** designed to pro
 | 🇨🇳 **Weibo** | 3 posts | Chinese social media | Chinese |
 | 🇮🇳 **LinkedIn** | 2 posts | Indian AI engineers | English |
 
-**Total: 1,700+ automated posts per day**
+**Total: 795+ automated posts per day**
 
 ## ⚡ Performance & Features
 
@@ -122,16 +122,16 @@ This VPN enables **+$3,375/month additional revenue** from Chinese market penetr
 ## 💰 Revenue Potential
 
 ### Conservative Estimate
-- **1,700 posts/day** × **3% CTR** = **51 clicks/day**
-- **51 clicks** × **8% conversion** = **4 sales/day**
-- **4 sales** × **$50 commission** = **$200/day**
-- **Monthly revenue: $6,000**
+- **795 posts/day** × **3% CTR** = **24 clicks/day**
+- **24 clicks** × **8% conversion** = **2 sales/day**
+- **2 sales** × **$50 commission** = **$100/day**
+- **Monthly revenue: $3,000**
 
 ### Optimistic Estimate
-- **1,700 posts/day** × **5% CTR** = **85 clicks/day**
-- **85 clicks** × **12% conversion** = **10 sales/day**
-- **10 sales** × **$50 commission** = **$500/day**
-- **Monthly revenue: $15,000**
+- **795 posts/day** × **5% CTR** = **40 clicks/day**
+- **40 clicks** × **12% conversion** = **5 sales/day**
+- **5 sales** × **$50 commission** = **$250/day**
+- **Monthly revenue: $7,500**
 
 ## 🛡️ Security & Compliance
 
