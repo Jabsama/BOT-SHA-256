@@ -18,6 +18,16 @@ beautifulsoup4==4.12.2
 # Data Processing
 asyncio-mqtt==0.16.1
 
+# Analytics & Dashboard
+flask==3.0.0
+sqlite3
+
+# Discord Notifications
+discord.py==2.3.2
+
+# Additional utilities
+aiohttp==3.9.0
+
 # Development Dependencies (optional)
 # Uncomment for development
 # black==23.12.1

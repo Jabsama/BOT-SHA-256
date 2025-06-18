@@ -1,183 +1,249 @@
-# 🚀 VoltageGPU Bot - High-Performance Multi-Platform Promotion Bot
+# 🚀 BOT SHA-256 - AI-Powered Social Media Automation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Platforms](https://img.shields.io/badge/platforms-8-green.svg)](#supported-platforms)
-[![Performance](https://img.shields.io/badge/posts-795%2B%2Fday-red.svg)](#performance)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
-> **High-performance automated promotion bot for VoltageGPU affiliate marketing across 8 global platforms**
+> **The most advanced open-source social media automation bot with AI performance analysis, timezone optimization, and smart targeting.**
 
-## 🎯 What is VoltageGPU Bot?
+## 🌟 What is BOT SHA-256?
 
-VoltageGPU Bot is a **high-performance automated marketing bot** designed to promote your **SHA-256 affiliate codes** across multiple social media platforms simultaneously. 
+BOT SHA-256 is an intelligent, multi-platform social media automation bot that uses AI to optimize your content strategy across Twitter, Reddit, and Telegram. It automatically adapts to different timezones, languages, and audiences to maximize engagement and reach.
 
-### 💰 Decentralized Marketing System
-- **5% commission** for affiliate code owners on every deposit
-- **5% discount** for customers using your code
-- **Instant account creation** on voltagegpu.com (10 seconds)
-- **Stripe withdrawals** starting from $20
-- **Automated promotion** across 8 platforms
+## ✨ Key Features
 
-## 🌍 Supported Platforms
+### 🤖 **AI Performance Analysis**
+- Real-time engagement tracking and optimization
+- Adaptive content strategy based on performance data
+- Smart recommendations for best-performing content types
 
-| Platform | Daily Posts | Target Audience | Language |
-|----------|-------------|-----------------|----------|
-| 🐦 **Twitter** | 34 posts | Global tech community | English |
-| 💬 **Telegram** | 720 posts | Crypto/AI enthusiasts | English |
-| 📍 **Reddit** | 30 posts | Developers/Engineers | English |
-| 🇨🇳 **WeChat** | 1 post | Chinese tech market | Chinese |
-| 🇨🇳 **Bilibili** | 1 video/week | Chinese video platform | Chinese |
-| 🇨🇳 **Zhihu** | 5 responses | Chinese Q&A platform | Chinese |
-| 🇨🇳 **Weibo** | 3 posts | Chinese social media | Chinese |
-| 🇮🇳 **LinkedIn** | 2 posts | Indian AI engineers | English |
+### 🌍 **Global Timezone Optimization**
+- Automatic targeting of 10+ major regions (US, EU, Asia, LATAM)
+- Peak hour detection for maximum engagement
+- Dynamic region switching based on optimal posting times
 
-**Total: 795+ automated posts per day**
+### 📍 **Smart Platform Targeting**
+- **Reddit**: Intelligent subreddit selection with automatic flair detection
+- **Twitter**: Multi-account support with rate limiting
+- **Telegram**: Autonomous group joining and targeted posting
 
-## ⚡ Performance & Features
+### 🗣️ **Multilingual Support**
+- Content generation in English, Chinese, Portuguese, and German
+- Cultural adaptation for local markets
+- Language-specific hashtags and templates
 
-### 🚀 High-Performance Architecture
-- **Multi-platform posting** with intelligent scheduling
-- **Real-time API integration** with VoltageGPU
-- **Smart content generation** based on live GPU offers
-- **Automatic error recovery** and retry mechanisms
-- **UTM tracking** for conversion analytics
+### 📊 **Advanced Analytics**
+- SQLite database for performance tracking
+- Real-time insights and recommendations
+- Detailed error reporting with timing information
 
-### 🎯 Intelligent Targeting
-- **Regional optimization** (USA, India, China, Brazil)
-- **Platform-specific content** and timing
-- **Multi-language support** (English, Chinese, Portuguese)
-- **Audience segmentation** by platform demographics
+## 🚀 Quick Start Guide
 
-### 📊 Real-Time Dashboard
-- Live posting statistics
-- Success/failure rates per platform
-- Error tracking and resolution
-- Performance analytics
-
-## 🚀 Quick Start
-
-### 1. Clone Repository
+### 1. **Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/voltagegpu-bot.git
-cd voltagegpu-bot
+git clone https://github.com/Jabsama/BOT-SHA-256.git
+cd BOT-SHA-256
 ```
 
-### 2. Install Dependencies
+### 2. **Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure Environment
+### 3. **Configure Your Bot**
 ```bash
+# Copy the example configuration
 cp .env.example .env
-# Edit .env with your API credentials
+
+# Edit the configuration file
+nano .env  # or use your favorite editor
 ```
 
-### 4. Test Configuration
+### 4. **Launch Your Bot**
 ```bash
-python launch_bot.py --test
+# Test mode (recommended first)
+python bot_voltage_fixed.py --test
+
+# Production mode
+python bot_voltage_fixed.py
 ```
 
-### 5. Launch Production
+## 🔧 Configuration Guide
+
+### **Step 1: Basic Setup**
+
+Edit your `.env` file with your API credentials:
+
+```env
+# 🐦 Twitter Configuration (Get from https://developer.twitter.com)
+TWITTER_API_KEY=your_twitter_api_key
+TWITTER_API_SECRET=your_twitter_api_secret
+TWITTER_ACCESS_TOKEN=your_access_token
+TWITTER_ACCESS_SECRET=your_access_secret
+TWITTER_BEARER_TOKEN=your_bearer_token
+
+# 💬 Telegram Configuration (Get from @BotFather)
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHANNEL_ID=@your_channel
+
+# 📍 Reddit Configuration (Get from https://www.reddit.com/prefs/apps)
+REDDIT_CLIENT_ID=your_reddit_client_id
+REDDIT_CLIENT_SECRET=your_reddit_client_secret
+REDDIT_USERNAME=your_reddit_username
+REDDIT_PASSWORD=your_reddit_password
+
+# 💰 Your Affiliate Code
+AFFILIATE_CODE=your_affiliate_code
+```
+
+### **Step 2: Platform Setup**
+
+#### 🐦 **Twitter Setup**
+1. Go to [Twitter Developer Portal](https://developer.twitter.com)
+2. Create a new app and get your API keys
+3. Add keys to your `.env` file
+
+#### 💬 **Telegram Setup**
+1. Message [@BotFather](https://t.me/botfather) on Telegram
+2. Create a new bot with `/newbot`
+3. Get your bot token and add to `.env`
+
+#### 📍 **Reddit Setup**
+1. Go to [Reddit Apps](https://www.reddit.com/prefs/apps)
+2. Create a new "script" application
+3. Get your client ID and secret
+
+### **Step 3: Launch & Monitor**
+
 ```bash
-python launch_bot.py
+# Start with test mode to verify configuration
+python bot_voltage_fixed.py --test
+
+# If everything works, start production mode
+python bot_voltage_fixed.py
 ```
 
-## 🔧 Configuration
+## 📊 Dashboard Integration
 
-### Required APIs
-- **VoltageGPU API** - Get your API key from voltagegpu.com
-- **Twitter API** - Developer account required
-- **Telegram Bot** - Create via @BotFather
-- **Reddit API** - OAuth application required
+Want to monitor your bot's performance? BOT SHA-256 includes a built-in dashboard API!
 
-### Optional APIs (for maximum reach)
-- **WeChat Work API** - Chinese market
-- **Bilibili API** - Chinese video platform
-- **LinkedIn Marketing API** - Professional network
-- **Weibo API** - Chinese social media
-
-### 🇨🇳 Chinese Platforms Setup
-For WeChat, Bilibili, Zhihu, and Weibo integration, you may need a Chinese IP address. We recommend using our **FREE VPN solution**:
-
-**🚀 [FREE-VPN - China Solution](https://github.com/Jabsama/FREE-VPN)**
-- ✅ **2-second installation** on Windows
-- ✅ **Optimized for WeChat** SMS verification
-- ✅ **Perfect for bot development** outside China
-- ✅ **100% Open Source** and completely free
-- ✅ **Supports all Chinese platforms** (WeChat, Bilibili, Zhihu, Weibo)
-
-**Quick Setup:**
+### **Enable Dashboard API**
 ```bash
-# 1. Download FREE-VPN
-git clone https://github.com/Jabsama/FREE-VPN.git
-
-# 2. Windows: Right-click "ONE-CLICK-VPN.bat" → "Run as administrator"
-# 3. Linux/macOS: sudo ./scripts/setup-linux.sh
-# 4. Test: Visit https://mp.weixin.qq.com/
+# Start the dashboard server
+python analytics_dashboard.py
 ```
 
-This VPN enables **+$3,375/month additional revenue** from Chinese market penetration!
+### **Access Your Dashboard**
+- Local: `http://localhost:5000`
+- Production: Configure reverse proxy to your domain
 
-## 💰 Revenue Potential
+### **API Endpoints**
+```
+GET /api/stats          - Get bot statistics
+GET /api/performance    - Get performance analytics
+GET /api/regions        - Get regional targeting data
+GET /api/health         - Health check
+```
 
-### Conservative Estimate
-- **795 posts/day** × **3% CTR** = **24 clicks/day**
-- **24 clicks** × **8% conversion** = **2 sales/day**
-- **2 sales** × **$50 commission** = **$100/day**
-- **Monthly revenue: $3,000**
+## 🎯 Advanced Features
 
-### Optimistic Estimate
-- **795 posts/day** × **5% CTR** = **40 clicks/day**
-- **40 clicks** × **12% conversion** = **5 sales/day**
-- **5 sales** × **$50 commission** = **$250/day**
-- **Monthly revenue: $7,500**
+### **Multi-Account Support**
+Add multiple accounts for higher posting volume:
 
-## 🛡️ Security & Compliance
+```env
+# Second Twitter Account
+TWITTER_API_KEY_2=your_second_twitter_key
+TWITTER_API_SECRET_2=your_second_twitter_secret
+# ... add all credentials with _2 suffix
 
-### Data Protection
-- All sensitive data stored in `.env` file
-- No hardcoded credentials in source code
-- Secure API authentication
-- Rate limiting and error handling
+# Second Reddit Account
+REDDIT_CLIENT_ID_2=your_second_reddit_id
+REDDIT_CLIENT_SECRET_2=your_second_reddit_secret
+# ... add all credentials with _2 suffix
+```
 
-### Platform Compliance
-- Respects platform-specific posting limits
-- Intelligent content rotation to avoid spam detection
-- Automatic retry mechanisms for failed posts
-- UTM tracking for transparent analytics
+### **Custom Content Templates**
+Modify `multilingual_templates.json` to customize your content:
 
-## 📈 Advanced Features
+```json
+{
+  "en": {
+    "twitter": {
+      "gpu_deals": [
+        "Your custom template here with {variables}"
+      ]
+    }
+  }
+}
+```
 
-### Smart Content Generation
-- **Dynamic content** based on real GPU offers
-- **A/B testing** with multiple templates
-- **Regional customization** for different markets
-- **Keyword optimization** for maximum engagement
+### **Regional Targeting**
+The bot automatically targets optimal regions based on time:
 
-### Automation & Scaling
-- **Multi-account support** for increased reach
-- **Intelligent scheduling** based on audience activity
-- **Automatic karma farming** for Reddit accounts
-- **Smart group joining** for Telegram channels
+- **US East Coast**: 1-8 PM EST
+- **US West Coast**: 10 AM - 5 PM PST  
+- **Europe**: 8 AM - 8 PM CET
+- **India**: 9-11 AM & 6-10 PM IST
+- **China**: 8-10 AM & 7-11 PM CST
+- **Brazil**: 11 AM - 10 PM BRT
+
+## 🛠️ Troubleshooting
+
+### **Common Issues**
+
+#### ❌ **Twitter Rate Limiting**
+```
+Error: 429 Too Many Requests
+Solution: Wait 1 hour or add more Twitter accounts
+```
+
+#### ❌ **Reddit Flair Errors**
+```
+Error: Flair required
+Solution: Bot automatically handles this with smart flair detection
+```
+
+#### ❌ **Telegram Connection Issues**
+```
+Error: Connection timeout
+Solution: Check your bot token and internet connection
+```
+
+### **Debug Mode**
+```bash
+# Run with verbose logging
+python bot_voltage_fixed.py --test
+```
+
+## 📈 Performance Optimization
+
+### **Best Practices**
+1. **Start with test mode** to verify configuration
+2. **Monitor rate limits** across all platforms
+3. **Use multiple accounts** for higher volume
+4. **Check regional performance** in analytics
+5. **Customize content** for your audience
+
+### **Scaling Up**
+- Add more social media accounts
+- Implement custom content strategies
+- Use the dashboard API for monitoring
+- Deploy on cloud servers for 24/7 operation
 
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-### Development Setup
+### **Development Setup**
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/voltagegpu-bot.git
+# Clone the repo
+git clone https://github.com/Jabsama/BOT-SHA-256.git
 
 # Install development dependencies
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 
 # Run tests
-python -m pytest tests/
-
-# Format code
-black launch_bot.py
+python bot_voltage_fixed.py --test
 ```
 
 ## 📄 License
@@ -186,16 +252,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- 📖 **Documentation**: [Enhanced Bot Guide](ENHANCED_BOT_GUIDE.md)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/voltagegpu-bot/issues)
-- 💬 **Community**: [Discussions](https://github.com/yourusername/voltagegpu-bot/discussions)
+- 📖 **Documentation**: Check our guides in the `/docs` folder
+- 🐛 **Bug Reports**: [Create an issue](https://github.com/Jabsama/BOT-SHA-256/issues)
+- 💡 **Feature Requests**: [Create an issue](https://github.com/Jabsama/BOT-SHA-256/issues)
+- 💬 **Community**: Join our discussions
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/voltagegpu-bot&type=Date)](https://star-history.com/#yourusername/voltagegpu-bot&Date)
+If BOT SHA-256 helps you automate your social media, please give us a star! ⭐
 
 ---
 
-**Made with ❤️ for the VoltageGPU community**
+**Made with ❤️ by the open source community**
 
-*Start earning passive income with your SHA-256 affiliate code today!*
+*BOT SHA-256 - Intelligent Social Media Automation for Everyone*
