@@ -851,13 +851,21 @@ class AutonomousSHA256Bot:
             discovered_reddit = len(self.group_discovery.discovered_groups['reddit'])
             print(f"   📍 Reddit ({reddit_data['name']}): {status} ({reddit_data['posts_today']} posts, {discovered_reddit} communities)")
         
-        # Performance metrics
+        # Performance metrics with follow/unfollow stats
         print(f"\n📊 AUTONOMOUS METRICS:")
-        print(f"   🐦 Twitter: {self.stats['twitter_posts']}")
-        print(f"   💬 Telegram: {self.stats['telegram_posts']}")
-        print(f"   📍 Reddit: {self.stats['reddit_posts']}")
+        print(f"   🐦 Twitter Posts: {self.stats['twitter_posts']}")
+        print(f"   💬 Telegram Posts: {self.stats['telegram_posts']}")
+        print(f"   📍 Reddit Posts: {self.stats['reddit_posts']}")
+        
+        # Twitter Follow/Unfollow metrics
+        if self.twitter_follow_manager:
+            follow_stats = self.twitter_follow_manager.get_follow_stats()
+            today_stats = follow_stats['today']
+            print(f"   🐦 Twitter Growth: +{today_stats['follows']}F -{today_stats['unfollows']}UF ({follow_stats['follow_back_rate']:.1f}% follow back)")
+            print(f"   👥 Following: {follow_stats['total_following']} | Follow backs: {follow_stats['follow_backs']}")
+        
         print(f"   🔍 Discoveries: {self.stats['discoveries']}")
-        print(f"   ⚡ Optimizations: {self.stats['optimizations']}")
+        print(f"   ⚡ AI Optimizations: {self.stats['optimizations']}")
         print(f"   ❌ Errors: {self.stats['errors']}")
         
         # Next action countdown
