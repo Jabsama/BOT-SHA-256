@@ -1,0 +1,36 @@
+{
+  "discovered_groups": {
+    "telegram": [
+      {
+        "id": "@EuroTech",
+        "name": "Euro Tech",
+        "type": "public"
+      },
+      {
+        "id": "@EUMining",
+        "name": "EU Mining",
+        "type": "public"
+      }
+    ],
+    "reddit": []
+  },
+  "group_performance": {
+    "@EuroTech": {
+      "platform": "telegram",
+      "success_rate": 0.0,
+      "total_posts": 0,
+      "successful_posts": 0,
+      "last_post": null,
+      "discovered_at": "2025-06-29T22:08:07.665212"
+    },
+    "@EUMining": {
+      "platform": "telegram",
+      "success_rate": 0.0,
+      "total_posts": 0,
+      "successful_posts": 0,
+      "last_post": null,
+      "discovered_at": "2025-06-29T22:08:07.665212"
+    }
+  },
+  "last_updated": "2025-06-29T22:08:07.665212"
+}

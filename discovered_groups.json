@@ -1,24 +1,20 @@
 {
   "telegram": [
-    "@DockerGroup",
-    "@CryptoOfficial",
-    "@DataScienceChat",
-    "@DataScienceOfficial",
-    "@CloudComputing",
-    "@PythonHub",
-    "@PythonChat",
-    "@PrivacyNetwork",
-    "@ProgrammingHub",
-    "@GPUNetwork",
-    "@CloudComputingHub",
-    "@Python",
-    "@DeepLearningGroup",
     "@GlobalPython",
-    "@Blockchain",
+    "@GPUNetwork",
+    "@PythonHub",
+    "@DataScienceOfficial",
+    "@Python",
+    "@CloudComputing",
+    "@CryptoOfficial",
+    "@MiningChat",
+    "@DeepLearningGroup",
     "@Crypto",
     "@StartupChat",
     "@CryptoGroup",
-    "@MiningChat"
+    "@DataScienceChat",
+    "@CloudComputingHub",
+    "@ProgrammingHub"
   ],
   "reddit": [],
   "performance": {
@@ -93,33 +89,33 @@
       "last_used": "2025-06-23T12:39:06.963862"
     },
     "@VoltageGPU": {
-      "posts": 1881,
-      "successes": 36,
-      "total_engagement": 914,
-      "score": 0.08956379585326953,
-      "last_used": "2025-06-29T21:34:42.251117"
+      "posts": 1805,
+      "successes": 18,
+      "total_engagement": 460,
+      "score": 0.08364727608494922,
+      "last_used": "2025-06-29T21:57:00.133619"
     },
     "entrepreneur": {
-      "posts": 1742,
+      "posts": 1810,
       "successes": 0,
       "total_engagement": 0,
       "score": 0.0,
-      "last_used": "2025-06-29T12:02:15.127891"
+      "last_used": "2025-06-29T21:57:02.550251"
     },
     "startups": {
-      "posts": 1742,
+      "posts": 1810,
       "successes": 0,
       "total_engagement": 0,
       "score": 0.0,
-      "last_used": "2025-06-29T12:02:15.288171"
+      "last_used": "2025-06-29T21:57:02.703155"
     },
     "SideProject": {
-      "posts": 1742,
+      "posts": 1810,
       "successes": 5,
       "total_engagement": 193,
-      "score": 0.11780918484500574,
-      "last_used": "2025-06-29T12:02:15.457362"
+      "score": 0.11773370165745857,
+      "last_used": "2025-06-29T21:57:02.853264"
     }
   },
-  "last_updated": "2025-06-29T21:34:42.251117"
+  "last_updated": "2025-06-29T21:57:02.853264"
 }

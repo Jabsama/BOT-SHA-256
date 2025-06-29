@@ -23,11 +23,11 @@ from dotenv import load_dotenv
 import telegram
 from telegram.ext import Application
 
-# Import our modular components
-from modules.autonomous_discovery import AutonomousGroupDiscovery, AutonomousContentOptimizer
-from modules.autonomous_performance import AutonomousPerformanceEngine
-from modules.timing_manager import TimezoneOptimizer
-from modules.content_manager import ContentGenerator
+# CRITICAL FIX: Disable proxy globally
+os.environ['NO_PROXY'] = '*'
+os.environ['HTTP_PROXY'] = ''
+os.environ['HTTPS_PROXY'] = ''
+
 from modules.platform_manager import AdvancedRateLimitManager, ConnectionPoolManager
 from modules.predictive_ai import PredictiveAI
 from modules.enterprise_content import EnterpriseContentGenerator
@@ -36,6 +36,8 @@ from modules.reddit_intelligence import RedditIntelligence
 from modules.twitter_viral import TwitterViralOptimizer
 from modules.telegram_autonomous import TelegramAutonomous
 from modules.twitter_follow_manager import TwitterFollowManager
+from modules.autonomous_performance import AutonomousPerformanceEngine
+from modules.autonomous_discovery import AutonomousGroupDiscovery
 
 # Enhanced logging configuration
 logging.basicConfig(
@@ -46,6 +48,178 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
+
+class TimezoneOptimizer:
+    """Optimize posting times based on global timezones"""
+    
+    def __init__(self):
+        self.timezone_regions = {
+            'US_EAST': {'timezone': 'America/New_York', 'peak_hours': [9, 12, 17, 20]},
+            'US_WEST': {'timezone': 'America/Los_Angeles', 'peak_hours': [8, 11, 16, 19]},
+            'EU_WEST': {'timezone': 'Europe/London', 'peak_hours': [9, 13, 18, 21]},
+            'ASIA_PACIFIC': {'timezone': 'Asia/Singapore', 'peak_hours': [10, 14, 19, 22]}
+        }
+    
+    def get_current_optimal_region(self) -> Tuple[str, str, str]:
+        """Get the currently optimal region based on time"""
+        now = datetime.now()
+        current_hour = now.hour
+        
+        # Simple logic: target regions during their peak hours
+        if 9 <= current_hour <= 23:  # EU peak time
+            return 'EU_WEST', 'en', 'Europe/London'
+        elif 14 <= current_hour <= 2:  # US East peak time (accounting for wrap-around)
+            return 'US_EAST', 'en', 'America/New_York'
+        elif 19 <= current_hour <= 7:  # Asia Pacific peak time (accounting for wrap-around)
+            return 'ASIA_PACIFIC', 'en', 'Asia/Singapore'
+        else:
+            return 'US_WEST', 'en', 'America/Los_Angeles'
+    
+    def is_peak_time(self, region: str) -> bool:
+        """Check if current time is peak for the region"""
+        now = datetime.now()
+        current_hour = now.hour
+        
+        if region in self.timezone_regions:
+            peak_hours = self.timezone_regions[region]['peak_hours']
+            return current_hour in peak_hours
+        
+        return False
+
+class ContentGenerator:
+    """Generate unique content for different platforms"""
+    
+    def __init__(self):
+        self.content_templates = {
+            'twitter': {
+                'gpu_deals': [
+                    "🚀 Found an incredible GPU deal! {gpu_count}x {gpu_type} at ${price_per_hour}/hour in {location}. Perfect for AI/ML workloads! #GPU #AI #MachineLearning",
+                    "⚡ GPU Alert: {gpu_type} cluster available for ${price_per_hour}/hour! {uptime}% uptime guaranteed. Ideal for deep learning projects! #DeepLearning #GPU",
+                    "🔥 Hot deal: {gpu_count}x {gpu_type} GPUs in {location} - only ${price_per_hour}/hour! Great for training neural networks! #AI #GPU #Tech"
+                ],
+                'free_vpn': [
+                    "🔒 Need secure browsing? Check out these free VPN options that actually work! Privacy matters! #VPN #Privacy #Security",
+                    "🛡️ Protecting your data shouldn't cost a fortune. Here are reliable free VPN services! #Cybersecurity #VPN #Privacy"
+                ]
+            },
+            'telegram': {
+                'gpu_deals': [
+                    "🚀 **GPU DEAL ALERT** 🚀\n\n💻 {gpu_count}x {gpu_type}\n💰 ${price_per_hour}/hour\n📍 {location}\n⚡ {uptime}% uptime\n\nPerfect for AI/ML projects! DM for details.",
+                    "⚡ **PREMIUM GPU CLUSTER** ⚡\n\n🔥 {gpu_type} available now\n💵 Starting at ${price_per_hour}/hour\n🌍 Location: {location}\n\nIdeal for deep learning and AI training!"
+                ]
+            },
+            'reddit': {
+                'gpu_deals': [
+                    "I've been researching cost-effective GPU solutions for AI development and found some interesting alternatives to traditional cloud providers. Has anyone tried decentralized GPU networks?",
+                    "Looking into GPU economics for machine learning projects. The cost difference between traditional providers and emerging alternatives is significant. Any experiences to share?"
+                ]
+            }
+        }
+    
+    def generate_unique_content(self, platform: str, content_type: str, language: str, offer: Dict = None) -> str:
+        """Generate unique content for platform and type"""
+        if platform not in self.content_templates:
+            return f"Check out this amazing {content_type} opportunity!"
+        
+        if content_type not in self.content_templates[platform]:
+            content_type = list(self.content_templates[platform].keys())[0]
+        
+        templates = self.content_templates[platform][content_type]
+        template = random.choice(templates)
+        
+        if offer:
+            try:
+                return template.format(
+                    gpu_count=offer.get('gpu_count', 4),
+                    gpu_type=offer.get('gpu_type', 'H100'),
+                    price_per_hour=offer.get('price_per_hour', 35.99),
+                    location=offer.get('location', 'Singapore'),
+                    uptime=offer.get('uptime', 99.5)
+                )
+            except KeyError:
+                return template
+        
+        return template
+
+class AutonomousContentOptimizer:
+    """Optimize content based on performance data"""
+    
+    def __init__(self):
+        self.performance_data = {}
+        self.optimization_rules = {
+            'twitter': {
+                'max_length': 280,
+                'optimal_hashtags': 2,
+                'emoji_boost': True,
+                'urgency_words': ['urgent', 'limited', 'now', 'today']
+            },
+            'telegram': {
+                'max_length': 4096,
+                'optimal_hashtags': 3,
+                'emoji_boost': True,
+                'formatting': True
+            },
+            'reddit': {
+                'max_length': 10000,
+                'optimal_hashtags': 0,
+                'emoji_boost': False,
+                'professional_tone': True
+            }
+        }
+    
+    def optimize_content(self, content: str, platform: str) -> str:
+        """Optimize content for specific platform"""
+        if platform not in self.optimization_rules:
+            return content
+        
+        rules = self.optimization_rules[platform]
+        optimized = content
+        
+        # Length optimization
+        if len(optimized) > rules['max_length']:
+            optimized = optimized[:rules['max_length']-3] + "..."
+        
+        # Platform-specific optimizations
+        if platform == 'twitter':
+            # Add urgency if missing
+            if not any(word in optimized.lower() for word in rules['urgency_words']):
+                if random.random() < 0.3:  # 30% chance
+                    optimized = f"🚨 {optimized}"
+        
+        elif platform == 'telegram':
+            # Add formatting
+            if rules['formatting'] and '**' not in optimized:
+                # Bold important words
+                optimized = optimized.replace('GPU', '**GPU**')
+                optimized = optimized.replace('DEAL', '**DEAL**')
+        
+        elif platform == 'reddit':
+            # Professional tone
+            if rules['professional_tone']:
+                optimized = optimized.replace('🚀', '').replace('🔥', '').replace('⚡', '')
+        
+        return optimized
+    
+    def record_content_performance(self, content: str, platform: str, engagement: int, success: bool):
+        """Record content performance for learning"""
+        content_hash = str(hash(content))
+        
+        if content_hash not in self.performance_data:
+            self.performance_data[content_hash] = {
+                'platform': platform,
+                'content': content[:100],  # Store first 100 chars
+                'performances': []
+            }
+        
+        self.performance_data[content_hash]['performances'].append({
+            'engagement': engagement,
+            'success': success,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        # Keep only last 10 performances
+        self.performance_data[content_hash]['performances'] = \
+            self.performance_data[content_hash]['performances'][-10:]
 
 class AutonomousSHA256Bot:
     """Fully autonomous, self-improving SHA-256 affiliate marketing bot"""
