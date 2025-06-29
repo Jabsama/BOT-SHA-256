@@ -1,21 +1,24 @@
 {
   "telegram": [
-    "@StartupChat",
-    "@DeepLearningGroup",
-    "@MiningChat",
+    "@Python",
+    "@CloudComputingHub",
+    "@DataScienceChat",
+    "@InnovationOfficial",
+    "@GCPGroup",
+    "@GPUNetwork",
+    "@CloudComputing",
+    "@GlobalPython",
+    "@Startup",
+    "@CryptoGroup",
     "@Crypto",
     "@ProgrammingHub",
     "@DataScienceOfficial",
-    "@Python",
-    "@GPUNetwork",
-    "@PythonHub",
-    "@CloudComputing",
-    "@GlobalPython",
-    "@DataScienceChat",
-    "@CloudComputingHub",
     "@CryptoOfficial",
-    "@Startup",
-    "@CryptoGroup"
+    "@StartupChat",
+    "@DeepLearningGroup",
+    "@MiningChat",
+    "@AIChat",
+    "@PythonHub"
   ],
   "reddit": [],
   "performance": {
@@ -90,11 +93,11 @@
       "last_used": "2025-06-23T12:39:06.963862"
     },
     "@VoltageGPU": {
-      "posts": 1717,
-      "successes": 20,
-      "total_engagement": 515,
-      "score": 0.0854037565521258,
-      "last_used": "2025-06-29T08:43:31.007363"
+      "posts": 1756,
+      "successes": 37,
+      "total_engagement": 932,
+      "score": 0.09031699809148556,
+      "last_used": "2025-06-29T09:31:59.809101"
     },
     "entrepreneur": {
       "posts": 1718,
@@ -118,5 +121,5 @@
       "last_used": "2025-06-29T08:39:41.819890"
     }
   },
-  "last_updated": "2025-06-29T08:43:31.007363"
+  "last_updated": "2025-06-29T09:31:59.809101"
 }

@@ -35,6 +35,7 @@ from modules.ab_testing import ABTestingEngine
 from modules.reddit_intelligence import RedditIntelligence
 from modules.twitter_viral import TwitterViralOptimizer
 from modules.telegram_autonomous import TelegramAutonomous
+from modules.twitter_follow_manager import TwitterFollowManager
 
 # Enhanced logging configuration
 logging.basicConfig(
@@ -73,6 +74,7 @@ class AutonomousSHA256Bot:
         self.reddit_intelligence = RedditIntelligence()
         self.twitter_viral = TwitterViralOptimizer()
         self.telegram_autonomous = None  # Will be initialized if Telegram token available
+        self.twitter_follow_manager = None  # Will be initialized if Twitter clients available
         
         # Initialize platforms
         self.setup_platforms()
@@ -199,6 +201,17 @@ class AutonomousSHA256Bot:
                 
         except Exception as e:
             logging.error(f"❌ Reddit setup failed: {e}")
+        
+        # Initialize Twitter Follow Manager if Twitter clients are available
+        if self.twitter_clients:
+            try:
+                # Use the first Twitter client for follow management
+                self.twitter_follow_manager = TwitterFollowManager(
+                    self.twitter_clients[0]['client']
+                )
+                logging.info("🐦 Twitter Follow Manager initialized with safe limits (150 follows/day)")
+            except Exception as e:
+                logging.error(f"❌ Twitter Follow Manager setup failed: {e}")
     
     def get_gpu_offers(self) -> List[Dict]:
         """Get GPU offers with enhanced error handling"""
@@ -739,6 +752,35 @@ class AutonomousSHA256Bot:
         if intel_summary['subreddits_analyzed'] > 0:
             logging.info(f"🧠 Reddit Intelligence: {intel_summary['subreddits_analyzed']} subreddits analyzed, {intel_summary['success_rate']:.1%} success rate")
     
+    def autonomous_twitter_follow_cycle(self):
+        """🐦 INTELLIGENT Twitter Follow/Unfollow Management"""
+        if not self.twitter_follow_manager:
+            return
+            
+        try:
+            # Run daily follow/unfollow cycle
+            results = self.twitter_follow_manager.run_daily_cycle()
+            
+            # Log results
+            if results['follows']['followed'] > 0 or results['unfollows']['unfollowed'] > 0:
+                logging.info(f"🐦 Follow Manager: +{results['follows']['followed']} follows, -{results['unfollows']['unfollowed']} unfollows")
+                
+                # Update stats
+                if 'twitter_follows' not in self.stats:
+                    self.stats['twitter_follows'] = 0
+                    self.stats['twitter_unfollows'] = 0
+                
+                self.stats['twitter_follows'] += results['follows']['followed']
+                self.stats['twitter_unfollows'] += results['unfollows']['unfollowed']
+                
+                # Display follow stats
+                follow_stats = self.twitter_follow_manager.get_follow_stats()
+                logging.info(f"🐦 Follow Stats: {follow_stats['total_following']} following, {follow_stats['follow_back_rate']:.1f}% follow back rate")
+            
+        except Exception as e:
+            logging.error(f"❌ Twitter Follow Manager error: {e}")
+            self.stats['errors'] += 1
+    
     def display_autonomous_status(self):
         """Display enhanced autonomous status with countdown and auto-recovery"""
         now = datetime.now()
@@ -927,6 +969,17 @@ class AutonomousSHA256Bot:
                 
                 self.autonomous_post_reddit()
                 time.sleep(2)
+                
+                # Run Twitter follow/unfollow cycle (every 6th cycle = ~6 minutes)
+                if hasattr(self, '_follow_cycle_counter'):
+                    self._follow_cycle_counter += 1
+                else:
+                    self._follow_cycle_counter = 1
+                
+                if self._follow_cycle_counter >= 6:  # Every 6 minutes
+                    self.autonomous_twitter_follow_cycle()
+                    self._follow_cycle_counter = 0
+                    time.sleep(2)
                 
                 # Display autonomous status
                 self.display_autonomous_status()
