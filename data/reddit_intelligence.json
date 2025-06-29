@@ -1,0 +1,156 @@
+{
+  "subreddit_rules": {
+    "MachineLearning": {
+      "name": "MachineLearning",
+      "requires_tags": true,
+      "allowed_tags": [
+        "[D]",
+        "[R]",
+        "[N]",
+        "[P]"
+      ],
+      "title_format": "[{tag}] {title}",
+      "content_requirements": [
+        "technical_depth",
+        "research_context",
+        "specific_question"
+      ],
+      "banned_keywords": [
+        "promotion",
+        "affiliate",
+        "discount",
+        "cheap",
+        "deal"
+      ],
+      "min_karma_required": 50,
+      "account_age_required": 30,
+      "posting_frequency_limit": "1_per_week",
+      "flair_required": true,
+      "available_flairs": [
+        "Discussion",
+        "Research",
+        "News",
+        "Project"
+      ],
+      "last_updated": "2025-06-29T08:33:39.690830"
+    },
+    "artificial": {
+      "name": "artificial",
+      "requires_tags": false,
+      "allowed_tags": [],
+      "title_format": "{title}",
+      "content_requirements": [
+        "ai_context",
+        "thoughtful_discussion"
+      ],
+      "banned_keywords": [
+        "promotion",
+        "affiliate",
+        "spam"
+      ],
+      "min_karma_required": 10,
+      "account_age_required": 7,
+      "posting_frequency_limit": "2_per_week",
+      "flair_required": false,
+      "available_flairs": [],
+      "last_updated": "2025-06-29T08:33:39.690830"
+    },
+    "deeplearning": {
+      "name": "deeplearning",
+      "requires_tags": true,
+      "allowed_tags": [
+        "[D]",
+        "[R]",
+        "[P]",
+        "[N]"
+      ],
+      "title_format": "[{tag}] {title}",
+      "content_requirements": [
+        "technical_content",
+        "research_basis"
+      ],
+      "banned_keywords": [
+        "promotion",
+        "commercial",
+        "sale"
+      ],
+      "min_karma_required": 25,
+      "account_age_required": 14,
+      "posting_frequency_limit": "1_per_week",
+      "flair_required": true,
+      "available_flairs": [
+        "Discussion",
+        "Research",
+        "Project"
+      ],
+      "last_updated": "2025-06-29T08:33:39.690830"
+    }
+  },
+  "ban_patterns": {
+    "artificial": [
+      {
+        "reason": "received 401 HTTP response",
+        "date": "2025-06-29T08:33:54.174885",
+        "account": "Anxious_Step_9407"
+      },
+      {
+        "reason": "received 403 HTTP response",
+        "date": "2025-06-29T08:33:56.563128",
+        "account": "Safe_Chance8592"
+      }
+    ],
+    "MachineLearning": [
+      {
+        "reason": "received 401 HTTP response",
+        "date": "2025-06-29T08:33:54.513737",
+        "account": "Anxious_Step_9407"
+      },
+      {
+        "reason": "received 403 HTTP response",
+        "date": "2025-06-29T08:33:56.907069",
+        "account": "Safe_Chance8592"
+      }
+    ],
+    "deeplearning": [
+      {
+        "reason": "received 401 HTTP response",
+        "date": "2025-06-29T08:33:55.002891",
+        "account": "Anxious_Step_9407"
+      },
+      {
+        "reason": "received 403 HTTP response",
+        "date": "2025-06-29T08:33:57.251822",
+        "account": "Safe_Chance8592"
+      }
+    ]
+  },
+  "successful_patterns": {},
+  "account_health": {
+    "Anxious_Step_9407": {
+      "posts_this_week": 0,
+      "last_post_date": "2025-06-29T08:33:55.002891",
+      "ban_risk_score": 6,
+      "successful_posts": 0,
+      "removed_posts": 3,
+      "last_removal_reason": "received 401 HTTP response",
+      "subreddits_posted": [
+        "artificial",
+        "MachineLearning",
+        "deeplearning"
+      ]
+    },
+    "Safe_Chance8592": {
+      "posts_this_week": 0,
+      "last_post_date": "2025-06-29T08:33:57.251822",
+      "ban_risk_score": 6,
+      "successful_posts": 0,
+      "removed_posts": 3,
+      "last_removal_reason": "received 403 HTTP response",
+      "subreddits_posted": [
+        "artificial",
+        "MachineLearning",
+        "deeplearning"
+      ]
+    }
+  }
+}

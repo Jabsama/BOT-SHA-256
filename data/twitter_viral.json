@@ -1,0 +1,39 @@
+{
+  "viral_patterns": [
+    {
+      "hashtags": [
+        "#AI",
+        "#GPU",
+        "#MachineLearning"
+      ],
+      "content_type": "tech_comparison",
+      "engagement_rate": 0.15,
+      "reach": 5000,
+      "time_of_day": 14,
+      "day_of_week": 2,
+      "sentiment": "positive",
+      "media_type": "text",
+      "last_used": "2025-06-22T08:33:39.691831"
+    },
+    {
+      "hashtags": [
+        "#CloudComputing",
+        "#AWS",
+        "#Savings"
+      ],
+      "content_type": "cost_savings",
+      "engagement_rate": 0.12,
+      "reach": 3000,
+      "time_of_day": 10,
+      "day_of_week": 1,
+      "sentiment": "informative",
+      "media_type": "text",
+      "last_used": "2025-06-24T08:33:39.691831"
+    }
+  ],
+  "account_health": {},
+  "trending_hashtags": {},
+  "shadow_ban_indicators": {},
+  "successful_content": [],
+  "failed_content": []
+}

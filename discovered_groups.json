@@ -1,0 +1,122 @@
+{
+  "telegram": [
+    "@StartupChat",
+    "@DeepLearningGroup",
+    "@MiningChat",
+    "@Crypto",
+    "@ProgrammingHub",
+    "@DataScienceOfficial",
+    "@Python",
+    "@GPUNetwork",
+    "@PythonHub",
+    "@CloudComputing",
+    "@GlobalPython",
+    "@DataScienceChat",
+    "@CloudComputingHub",
+    "@CryptoOfficial",
+    "@Startup",
+    "@CryptoGroup"
+  ],
+  "reddit": [],
+  "performance": {
+    "@DataScienceOfficial": {
+      "posts": 16,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:39:03.135059"
+    },
+    "@GlobalPython": {
+      "posts": 31,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:32:01.705252"
+    },
+    "@Crypto": {
+      "posts": 11,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:01:32.397919"
+    },
+    "@MiningChat": {
+      "posts": 20,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:33:01.721090"
+    },
+    "@GPUNetwork": {
+      "posts": 20,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:34:01.728267"
+    },
+    "@PythonHub": {
+      "posts": 4,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:39:03.061534"
+    },
+    "@DataScienceChat": {
+      "posts": 4,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:39:03.162058"
+    },
+    "MachineLearning": {
+      "posts": 8,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:39:06.529834"
+    },
+    "artificial": {
+      "posts": 8,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:39:06.755890"
+    },
+    "LocalLLaMA": {
+      "posts": 8,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-23T12:39:06.963862"
+    },
+    "@VoltageGPU": {
+      "posts": 1717,
+      "successes": 20,
+      "total_engagement": 515,
+      "score": 0.0854037565521258,
+      "last_used": "2025-06-29T08:43:31.007363"
+    },
+    "entrepreneur": {
+      "posts": 1718,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-29T08:39:41.512527"
+    },
+    "startups": {
+      "posts": 1718,
+      "successes": 0,
+      "total_engagement": 0,
+      "score": 0.0,
+      "last_used": "2025-06-29T08:39:41.673911"
+    },
+    "SideProject": {
+      "posts": 1718,
+      "successes": 5,
+      "total_engagement": 193,
+      "score": 0.11783725261932479,
+      "last_used": "2025-06-29T08:39:41.819890"
+    }
+  },
+  "last_updated": "2025-06-29T08:43:31.007363"
+}
