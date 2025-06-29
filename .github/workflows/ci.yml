@@ -36,8 +36,8 @@ jobs:
     
     - name: Test bot imports and basic functionality
       run: |
-        python -c "import launch_bot; print('✅ launch_bot imports successfully')"
-        python launch_bot.py --test || echo "⚠️ Test mode requires API keys"
+        python -c "import sys; sys.path.append('.'); from SHA-256BOT import AutonomousSHA256Bot; print('✅ SHA-256BOT imports successfully')"
+        python SHA-256BOT.py --test || echo "⚠️ Test mode requires API keys"
     
     - name: Check configuration files
       run: |
