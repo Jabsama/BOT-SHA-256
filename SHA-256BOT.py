@@ -875,38 +875,41 @@ class AutonomousSHA256Bot:
         should_post_telegram, telegram_reason = self.performance_engine.should_post_now('telegram', region, language)
         should_post_reddit, reddit_reason = self.performance_engine.should_post_now('reddit', region, language)
         
-        # Twitter timing with precise seconds
+        # Twitter POSTING timing with precise seconds (120min interval)
         if self.stats.get('twitter_cooldown_until'):
             cooldown_remaining = self.stats['twitter_cooldown_until'] - now
             if cooldown_remaining.total_seconds() > 0:
                 total_seconds = int(cooldown_remaining.total_seconds())
                 minutes = total_seconds // 60
                 seconds = total_seconds % 60
-                print(f"   🐦 Next Twitter POST: {minutes}m{seconds:02d}s (rate limit cooldown)")
+                print(f"   🐦 Next Twitter POST: {minutes}m{seconds:02d}s (rate limit cooldown - 120min interval)")
             else:
                 print(f"   🐦 Next Twitter POST: NOW (cooldown expired)")
         elif not should_post_twitter:
-            # Calculate next optimal time (estimate 30-60 min for posts)
-            next_optimal_minutes = random.randint(30, 60)
-            print(f"   🐦 Next Twitter POST: ~{next_optimal_minutes}m (120min interval)")
+            # Calculate next optimal time for POSTS (120 minutes = 7200 seconds)
+            print(f"   🐦 Next Twitter POST: ~120m (waiting for 120min interval)")
         else:
             print(f"   🐦 Next Twitter POST: NOW (ready to post)")
             
-        # Twitter Follow/Unfollow timing (separate from posts)
+        # Twitter FOLLOW/UNFOLLOW timing (separate 6min cycle)
         if self.twitter_follow_manager:
             follow_stats = self.twitter_follow_manager.get_follow_stats()
             follow_remaining = follow_stats['daily_limits']['follow_remaining']
             unfollow_remaining = follow_stats['daily_limits']['unfollow_remaining']
             
-            # Calculate next follow cycle (every 6 minutes)
-            follow_cycle_seconds = (6 - (self._follow_cycle_counter if hasattr(self, '_follow_cycle_counter') else 0)) * 60
+            # Calculate next follow cycle (every 6 minutes = 360 seconds)
+            current_cycle = getattr(self, '_follow_cycle_counter', 0)
+            follow_cycle_seconds = (6 - current_cycle) * 60
+            if follow_cycle_seconds <= 0:
+                follow_cycle_seconds = 360  # Reset to 6 minutes
+            
             follow_minutes = follow_cycle_seconds // 60
             follow_secs = follow_cycle_seconds % 60
             
             if follow_remaining > 0 or unfollow_remaining > 0:
-                print(f"   🐦 Next FOLLOW/UNFOLLOW: {follow_minutes}m{follow_secs:02d}s ({follow_remaining} follows, {unfollow_remaining} unfollows left)")
+                print(f"   🐦 Next FOLLOW/UNFOLLOW: {follow_minutes}m{follow_secs:02d}s (Growth: {follow_remaining}F/{unfollow_remaining}UF left)")
             else:
-                print(f"   🐦 Next FOLLOW/UNFOLLOW: Tomorrow (daily limits reached)")
+                print(f"   🐦 Next FOLLOW/UNFOLLOW: Tomorrow (daily limits: 150F/175UF reached)")
             
         # Telegram timing
         if not should_post_telegram:
