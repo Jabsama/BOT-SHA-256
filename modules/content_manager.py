@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-📝 Content Manager Module - BOT SHA-256
-Enhanced content generator with multilingual support
+📝 Improved Content Manager Module - BOT SHA-256
+Professional content generator with better quality and engagement
 """
 
 import os
@@ -13,124 +13,95 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 class ContentGenerator:
-    """Enhanced content generator with multilingual support"""
+    """Professional content generator with improved quality"""
     
     def __init__(self):
         self.used_content_hashes = set()
-        self.multilingual_templates = {
+        self.professional_templates = {
             'en': {
                 'twitter': {
                     'gpu_deals': [
-                        "🚨 BREAKING: AWS JUST GOT DESTROYED! 🚨\n\n💥 {gpu_count}x {gpu_type} @ ${price}/hr\n🔥 AWS charges ${aws_price}/hr (INSANE!)\n💰 YOU SAVE ${savings_amount}/hr = ${monthly_savings}/month!\n\n🎯 Code {affiliate_code} = EXTRA 5% OFF\n⚡ https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🤯 NVIDIA H100 FOR PENNIES?! 🤯\n\n💻 {gpu_count}x {gpu_type} @ ${price}/hr\n🚫 AWS: ${aws_price}/hr (ROBBERY!)\n✅ VoltageGPU: ${price}/hr (GENIUS!)\n💸 Save ${yearly_savings}/YEAR!\n\n🔥 {affiliate_code} = 5% OFF\n🚀 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🚨 GPU RENTAL HACK EXPOSED! 🚨\n\n🤫 Secret: VoltageGPU vs AWS\n💰 AWS: ${aws_price}/hr (SCAM)\n⚡ VoltageGPU: ${price}/hr (STEAL)\n🎯 {savings}% CHEAPER!\n\n🔥 Use {affiliate_code} for 5% OFF\n💎 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🔥 MILLIONAIRE AI DEVS HATE THIS TRICK! 🔥\n\n💻 {gpu_count}x {gpu_type} @ ${price}/hr\n🚫 Big Tech wants you to pay ${aws_price}/hr\n✅ Smart devs pay ${price}/hr\n💰 Save ${monthly_savings}/month!\n\n🎁 {affiliate_code} = EXTRA 5%\n🚀 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🚨 AWS CUSTOMERS ARE FURIOUS! 🚨\n\n😡 AWS: ${aws_price}/hr for {gpu_type}\n😎 VoltageGPU: ${price}/hr for SAME GPU\n💸 Difference: ${savings_amount}/hr\n🤑 Monthly savings: ${monthly_savings}\n\n🔥 Code {affiliate_code} = 5% OFF\n⚡ https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
+                        "💡 Cost comparison: {gpu_count}x {gpu_type} GPU cluster\n• VoltageGPU: ${price}/hour\n• AWS equivalent: ${aws_price}/hour\n• Savings: {savings}% for AI training workloads\nPerfect for researchers on a budget! #AI #MachineLearning",
+                        
+                        "🧠 GPU Economics 101: Why decentralized computing matters\nTraditional cloud: ${aws_price}/hour for {gpu_type}s\nDecentralized networks: ${price}/hour\nThe math is simple for AI researchers and startups.\nWhat's your experience with GPU costs? #AI #CloudComputing",
+                        
+                        "📊 Real-world GPU pricing analysis:\n{gpu_count}x {gpu_type} configuration\n🔹 AWS: ${aws_price}/hr\n🔹 VoltageGPU: ${price}/hr\n🔹 Monthly savings: ${monthly_savings}\nGreat for ML experimentation! #MachineLearning #GPU",
+                        
+                        "🚀 Found an interesting GPU deal for AI training:\n{gpu_count}x {gpu_type} at ${price}/hour in {location}\nUptime: {uptime}% | Significant cost savings vs traditional cloud\nAnyone else exploring decentralized GPU networks? #AI #DeepLearning",
+                        
+                        "💰 Budget-friendly AI infrastructure:\n{gpu_count}x {gpu_type} clusters starting at ${price}/hour\nCompare that to ${aws_price}/hour on traditional platforms\nPerfect for startups and researchers! #AI #Startup #MachineLearning"
                     ],
-                    'free_vpn': [
-                        "🚨 FREE VPN ALERT! 🚨\n\n🔒 100% FREE VPN included with GPU rental\n🌍 Global servers, unlimited bandwidth\n⚡ No logs, military-grade encryption\n💰 Save $10/month vs ExpressVPN\n\n🎁 Code {affiliate_code} = 5% OFF GPU\n🚀 https://voltagegpu.com/vpn?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🤯 THEY'RE GIVING AWAY FREE VPN! 🤯\n\n🔥 VoltageGPU = GPU + FREE VPN\n💸 ExpressVPN: $12.95/month\n✅ VoltageGPU VPN: $0/month\n🌍 Same features, ZERO cost!\n\n🎯 {affiliate_code} = Extra 5% OFF\n⚡ https://voltagegpu.com/vpn?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🚨 VPN COMPANIES HATE THIS TRICK! 🚨\n\n🤫 Secret: Free premium VPN\n🔒 Military encryption + no logs\n🌍 50+ countries available\n💰 $0 vs $15/month competitors\n\n🔥 Code {affiliate_code} works\n💎 https://voltagegpu.com/vpn?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
+                    'educational': [
+                        "🧠 Understanding GPU rental economics:\nWhy are decentralized networks 60-80% cheaper?\n• No enterprise markup\n• Direct peer-to-peer access\n• Efficient resource utilization\nThoughts on this trend? #AI #CloudComputing",
+                        
+                        "📚 AI Training Cost Optimization 101:\n1. Compare hourly rates across providers\n2. Consider uptime and reliability\n3. Factor in data transfer costs\n4. Test with small workloads first\nWhat's your optimization strategy? #MachineLearning #AI",
+                        
+                        "🔍 GPU architecture comparison for AI workloads:\nH100: Best for large language models\nA100: Versatile for most ML tasks\nRTX4090: Cost-effective for experimentation\nWhich do you prefer for your projects? #AI #GPU",
+                        
+                        "💡 Pro tip: GPU rental cost calculation\nHourly rate × Training time × Number of experiments\nExample: ${price}/hr × 10hrs × 5 experiments = ${total_cost}\nAlways budget for multiple iterations! #MachineLearning #AI"
                     ],
-                    'promo_earnings': [
-                        "💰 I MADE $2,847 THIS MONTH! 💰\n\n🤑 VoltageGPU affiliate program\n📈 5% commission on ALL referrals\n🔥 My code: {affiliate_code}\n⚡ People save 70% vs AWS = easy sells\n\n💸 Start earning: https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🚨 PASSIVE INCOME HACK EXPOSED! 🚨\n\n💻 Share GPU deals = get paid\n📊 $500-3000/month possible\n🎯 Code {affiliate_code} = your money maker\n⚡ 70% savings = customers love it\n\n🤑 Join now: https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🔥 QUIT MY JOB THANKS TO THIS! 🔥\n\n💰 VoltageGPU referrals = freedom\n📈 $4,200 last month from code {affiliate_code}\n🚀 AI boom = massive demand\n⚡ 70% cheaper = instant sales\n\n💸 Your turn: https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ],
-                    'combo_deals': [
-                        "🚨 INSANE COMBO DEAL! 🚨\n\n💻 {gpu_count}x {gpu_type} @ ${price}/hr\n🔒 + FREE Premium VPN ($15/month value)\n💰 + 5% commission on referrals\n⚡ Total value: ${combo_value}/month\n\n🎁 Code {affiliate_code} = Extra 5% OFF\n🚀 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}",
-                        "🤯 3-IN-1 DEAL NOBODY KNOWS! 🤯\n\n🖥️ Cheap GPU rental\n🔒 Free premium VPN\n💰 Earn money sharing your code\n⚡ AWS users switching daily!\n\n🔥 {affiliate_code} = Your starter code\n💎 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
+                    'community': [
+                        "🤔 Question for the AI community:\nWhat's your biggest challenge with GPU costs for training?\nI've been exploring alternatives to traditional cloud providers.\nShare your experiences! #AI #MachineLearning #Community",
+                        
+                        "📈 Interesting trend: More researchers switching to decentralized GPU networks\nReasons I'm hearing:\n• 60-80% cost savings\n• Better availability\n• More flexible pricing\nWhat's driving your infrastructure decisions? #AI #Research",
+                        
+                        "🎯 Poll: What's your monthly GPU budget for AI projects?\nA) Under $500\nB) $500-2000\nC) $2000-5000\nD) Over $5000\nCurious about the community's spending patterns! #AI #MachineLearning #Poll",
+                        
+                        "💬 Discussion: Future of AI infrastructure\nWith GPU demand skyrocketing, what solutions are you exploring?\n• Traditional cloud (AWS, GCP, Azure)\n• Decentralized networks\n• On-premise hardware\nLet's discuss! #AI #Infrastructure"
                     ]
-                }
-            },
-            'zh': {
-                'twitter': {
+                },
+                'telegram': {
                     'gpu_deals': [
-                        "🚨 GPU优惠警报！🚨\n\n💻 {gpu_count}x {gpu_type} @ ${price}/小时\n⚡ 比AWS便宜{savings}%\n🌍 {location} | {uptime}%正常运行时间\n\n💰 代码 {affiliate_code} = 5%折扣！\n🔗 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
+                        "🔥 GPU Deal Alert!\n\n💻 {gpu_count}x {gpu_type} available\n💰 Price: ${price}/hour\n📍 Location: {location}\n⚡ Uptime: {uptime}%\n\nCompare to AWS: ${aws_price}/hour\nSavings: {savings}%\n\nGreat for AI training and research!\nCode: {affiliate_code}\n🔗 https://voltagegpu.com/?ref={affiliate_code}",
+                        
+                        "💡 Cost-Effective AI Infrastructure\n\nFound: {gpu_count}x {gpu_type} cluster\n💵 ${price}/hour vs ${aws_price}/hour (AWS)\n📊 Monthly savings: ${monthly_savings}\n🌍 {location} datacenter\n\nPerfect for:\n• Machine learning training\n• AI research projects\n• Model fine-tuning\n\nUse code: {affiliate_code}\n🚀 https://voltagegpu.com/?ref={affiliate_code}",
+                        
+                        "🧠 AI Researchers, Check This Out!\n\n{gpu_count}x {gpu_type} GPUs available\n⚡ ${price}/hour (vs ${aws_price}/hour traditional cloud)\n📈 {savings}% savings for your projects\n🌐 {location} | {uptime}% uptime\n\nIdeal for deep learning workloads\nAffiliate code: {affiliate_code}\n💻 https://voltagegpu.com/?ref={affiliate_code}"
                     ],
-                    'free_vpn': [
-                        "🚨 免费VPN警报！🚨\n\n🔒 GPU租赁包含100%免费VPN\n🌍 全球服务器，无限带宽\n⚡ 无日志，军用级加密\n💰 比ExpressVPN节省$10/月\n\n🎁 代码 {affiliate_code} = GPU额外5%折扣\n🚀 https://voltagegpu.com/vpn?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ],
-                    'promo_earnings': [
-                        "💰 我这个月赚了$2,847！💰\n\n🤑 VoltageGPU联盟计划\n📈 所有推荐5%佣金\n🔥 我的代码：{affiliate_code}\n⚡ 比AWS便宜70% = 容易销售\n\n💸 开始赚钱: https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ],
-                    'combo_deals': [
-                        "🚨 疯狂组合优惠！🚨\n\n💻 {gpu_count}x {gpu_type} @ ${price}/小时\n🔒 + 免费高级VPN（价值$15/月）\n💰 + 推荐5%佣金\n⚡ 总价值：${combo_value}/月\n\n🎁 代码 {affiliate_code} = 额外5%折扣\n🚀 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ]
-                }
-            },
-            'pt': {
-                'twitter': {
-                    'gpu_deals': [
-                        "🚨 ALERTA DE OFERTA GPU! 🚨\n\n💻 {gpu_count}x {gpu_type} @ ${price}/hora\n⚡ {savings}% mais barato que AWS\n🌍 {location} | {uptime}% uptime\n\n💰 Código {affiliate_code} = 5% OFF!\n🔗 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ],
-                    'affiliate': [
-                        "💰 ALERTA DE RENDA PASSIVA! 💰\n\n🤑 Referências GPU = fluxo de caixa constante\n📈 5% comissão por aluguel\n🔥 Código {affiliate_code} funciona globalmente\n⚡ 70% mais barato que AWS = vendas fáceis\n\n💸 Comece a ganhar: https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ]
-                }
-            },
-            'de': {
-                'twitter': {
-                    'gpu_deals': [
-                        "🚨 GPU ANGEBOT ALARM! 🚨\n\n💻 {gpu_count}x {gpu_type} @ ${price}/Stunde\n⚡ {savings}% günstiger als AWS\n🌍 {location} | {uptime}% Verfügbarkeit\n\n💰 Code {affiliate_code} = 5% RABATT!\n🔗 https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
-                    ],
-                    'affiliate': [
-                        "💰 PASSIVES EINKOMMEN ALARM! 💰\n\n🤑 GPU Empfehlungen = stetiger Cashflow\n📈 5% Provision pro Miete\n🔥 Code {affiliate_code} funktioniert global\n⚡ 70% günstiger als AWS = einfache Verkäufe\n\n💸 Verdienen starten: https://voltagegpu.com/?ref={affiliate_code}\n\n#{hashtag1} #{hashtag2}"
+                    'educational': [
+                        "📚 GPU Rental Guide for AI Developers\n\n🔍 What to look for:\n• Competitive hourly rates\n• High uptime (>99%)\n• Fast interconnects\n• Flexible billing\n\n💡 Pro tip: Always test with small workloads first\n\nCurrent deal: {gpu_count}x {gpu_type} @ ${price}/hr\nCode: {affiliate_code}\n🔗 https://voltagegpu.com/?ref={affiliate_code}",
+                        
+                        "🧠 Understanding GPU Economics\n\nWhy decentralized networks cost less:\n• No enterprise markup\n• Direct peer-to-peer access\n• Efficient resource sharing\n• Lower operational overhead\n\nExample: {gpu_type} cluster\n• Traditional: ${aws_price}/hr\n• Decentralized: ${price}/hr\n• Your savings: {savings}%\n\nTry it: {affiliate_code}\n🚀 https://voltagegpu.com/?ref={affiliate_code}"
                     ]
                 }
             }
         }
         
-        # Add telegram templates for each language
-        for lang in self.multilingual_templates:
-            if 'telegram' not in self.multilingual_templates[lang]:
-                self.multilingual_templates[lang]['telegram'] = {}
-            
-            # Copy all Twitter templates to Telegram
-            for content_type, templates in self.multilingual_templates[lang]['twitter'].items():
-                self.multilingual_templates[lang]['telegram'][content_type] = templates
-        
         self.hashtag_pools = {
             'en': {
-                'gpu': ['GPUDeals', 'GPURental', 'CloudGPU', 'AICompute', 'GPUCloud', 'CheapGPU', 'GPUHack', 'CloudSavings'],
-                'ai': ['AI', 'MachineLearning', 'DeepLearning', 'AITraining', 'NeuralNetworks', 'ChatGPT', 'OpenAI', 'AIStartup'],
-                'viral': ['ViralDeal', 'Exposed', 'Hack', 'Secret', 'Insane', 'Breaking', 'Urgent', 'Alert'],
-                'money': ['PassiveIncome', 'SideHustle', 'MakeMoneyOnline', 'AffiliateMarketing', 'Entrepreneur', 'BusinessHack'],
-                'vpn': ['FreeVPN', 'VPNDeal', 'Privacy', 'Security', 'Anonymous', 'VPNHack']
-            },
-            'zh': {
-                'gpu': ['GPU交易', 'GPU租赁', '云GPU', 'AI计算', 'GPU云'],
-                'ai': ['人工智能', '机器学习', '深度学习', 'AI训练', '神经网络']
-            },
-            'pt': {
-                'gpu': ['GPUOfertas', 'GPUAluguel', 'GPUNuvem', 'ComputacaoAI', 'NuvemGPU'],
-                'ai': ['IA', 'AprendizadoMaquina', 'AprendizadoProfundo', 'TreinamentoIA', 'RedesNeurais']
-            },
-            'de': {
-                'gpu': ['GPUAngebote', 'GPUMiete', 'CloudGPU', 'AICompute', 'GPUCloud'],
-                'ai': ['KI', 'MachineLearning', 'DeepLearning', 'AITraining', 'NeuralNetworks']
+                'ai': ['AI', 'MachineLearning', 'DeepLearning', 'AIResearch', 'NeuralNetworks', 'DataScience'],
+                'gpu': ['GPU', 'CloudComputing', 'AIInfrastructure', 'HPC', 'Computing'],
+                'business': ['Startup', 'Research', 'Innovation', 'Technology', 'CostOptimization'],
+                'community': ['Community', 'Discussion', 'Poll', 'Question', 'Experience']
             }
         }
         
     def generate_unique_content(self, platform: str, content_type: str, language: str = 'en', 
                               offer: Optional[Dict] = None) -> str:
-        """Generate unique multilingual content"""
+        """Generate professional, engaging content"""
         max_attempts = 10
         
+        # Map old content types to new professional ones
+        content_type_mapping = {
+            'gpu_deals': 'gpu_deals',
+            'free_vpn': 'educational',
+            'promo_earnings': 'community',
+            'combo_deals': 'gpu_deals'
+        }
+        
+        mapped_type = content_type_mapping.get(content_type, 'gpu_deals')
+        
         # Fallback to English if language not supported
-        if language not in self.multilingual_templates:
+        if language not in self.professional_templates:
             language = 'en'
             
         for attempt in range(max_attempts):
             try:
-                templates = self.multilingual_templates[language][platform][content_type]
+                templates = self.professional_templates[language][platform][mapped_type]
                 template = random.choice(templates)
                 
-                variables = self._generate_variables(language, offer)
+                variables = self._generate_variables(language, offer, mapped_type)
                 content = template.format(**variables)
-                
-                # No timestamp suffix - removed as requested
-                pass
                 
                 # Check uniqueness
                 content_hash = hashlib.md5(content.encode()).hexdigest()
@@ -144,25 +115,11 @@ class ContentGenerator:
         # Fallback
         return self._generate_fallback_content(platform, content_type, language, offer)
         
-    def _generate_variables(self, language: str, offer: Optional[Dict] = None) -> Dict:
-        """Generate variables for content templates with viral pricing comparisons"""
+    def _generate_variables(self, language: str, offer: Optional[Dict] = None, content_type: str = 'gpu_deals') -> Dict:
+        """Generate variables for professional content templates"""
         variables = {
             'affiliate_code': os.getenv('AFFILIATE_CODE', 'SHA-256-DEMO'),
         }
-        
-        # Get hashtags for language with smart selection based on content type
-        hashtag_pool = self.hashtag_pools.get(language, self.hashtag_pools['en'])
-        
-        # Smart hashtag selection based on content type
-        if 'free_vpn' in str(variables.get('content_type', '')):
-            variables['hashtag1'] = random.choice(hashtag_pool.get('vpn', hashtag_pool['gpu']))
-            variables['hashtag2'] = random.choice(hashtag_pool.get('viral', hashtag_pool['ai']))
-        elif 'promo_earnings' in str(variables.get('content_type', '')):
-            variables['hashtag1'] = random.choice(hashtag_pool.get('money', hashtag_pool['gpu']))
-            variables['hashtag2'] = random.choice(hashtag_pool.get('viral', hashtag_pool['ai']))
-        else:
-            variables['hashtag1'] = random.choice(hashtag_pool['gpu'])
-            variables['hashtag2'] = random.choice(hashtag_pool.get('viral', hashtag_pool['ai']))
         
         if offer:
             gpu_count = offer.get('gpu_count', random.randint(4, 16))
@@ -173,7 +130,7 @@ class ContentGenerator:
             gpu_type = random.choice(['H100', 'A100', 'RTX4090'])
             voltage_price = random.uniform(25, 45)
         
-        # Calculate AWS pricing for viral comparison
+        # Calculate realistic AWS pricing for comparison
         aws_prices = {
             'H100': 98.32,  # AWS p5.48xlarge per hour
             'A100': 32.77,  # AWS p4d.24xlarge per hour  
@@ -187,7 +144,7 @@ class ContentGenerator:
         savings_amount = aws_total_price - voltage_total_price
         savings_percentage = int((savings_amount / aws_total_price) * 100)
         monthly_savings = savings_amount * 24 * 30  # 24h/day * 30 days
-        yearly_savings = monthly_savings * 12
+        total_cost = voltage_price * 10 * 5  # Example calculation for educational content
         
         variables.update({
             'gpu_count': gpu_count,
@@ -196,8 +153,8 @@ class ContentGenerator:
             'aws_price': f"{aws_total_price:.2f}",
             'savings_amount': f"{savings_amount:.2f}",
             'monthly_savings': f"${monthly_savings:,.0f}",
-            'yearly_savings': f"${yearly_savings:,.0f}",
             'savings': savings_percentage,
+            'total_cost': f"${total_cost:.0f}",
             'location': offer.get('location', random.choice(['Singapore', 'Mumbai', 'Frankfurt'])) if offer else random.choice(['Singapore', 'Mumbai', 'Frankfurt']),
             'uptime': f"{offer.get('uptime', random.uniform(98, 99.9)):.1f}" if offer else f"{random.uniform(98, 99.9):.1f}"
         })
@@ -206,14 +163,11 @@ class ContentGenerator:
         
     def _generate_fallback_content(self, platform: str, content_type: str, language: str, 
                                  offer: Optional[Dict] = None) -> str:
-        """Generate fallback content"""
+        """Generate professional fallback content"""
         unique_id = str(uuid.uuid4())[:8]
         
         fallback_messages = {
-            'en': f"🚀 VoltageGPU - 70% cheaper GPU rentals! Code {os.getenv('AFFILIATE_CODE', 'DEMO')} saves 5% | https://voltagegpu.com | #{unique_id}",
-            'zh': f"🚀 VoltageGPU - GPU租赁便宜70%！代码 {os.getenv('AFFILIATE_CODE', 'DEMO')} 节省5% | https://voltagegpu.com | #{unique_id}",
-            'pt': f"🚀 VoltageGPU - Aluguel de GPU 70% mais barato! Código {os.getenv('AFFILIATE_CODE', 'DEMO')} economiza 5% | https://voltagegpu.com | #{unique_id}",
-            'de': f"🚀 VoltageGPU - 70% günstigere GPU-Miete! Code {os.getenv('AFFILIATE_CODE', 'DEMO')} spart 5% | https://voltagegpu.com | #{unique_id}"
+            'en': f"💡 Exploring cost-effective GPU solutions for AI training. VoltageGPU offers competitive rates vs traditional cloud providers. Code {os.getenv('AFFILIATE_CODE', 'DEMO')} for additional savings. https://voltagegpu.com #AI #MachineLearning",
         }
         
         return fallback_messages.get(language, fallback_messages['en'])
