@@ -30,7 +30,67 @@
       "successful_posts": 0,
       "last_post": null,
       "discovered_at": "2025-06-29T22:08:07.665212"
+    },
+    "@VoltageGPU": {
+      "platform": "unknown",
+      "success_rate": 0.10309278350515463,
+      "total_posts": 194,
+      "successful_posts": 20,
+      "last_post": "2025-06-30T08:59:54.418830",
+      "discovered_at": "2025-06-29T22:44:35.513719",
+      "engagement_history": [
+        {
+          "timestamp": "2025-06-30T08:23:34.984027",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:25:41.345762",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:36:40.348584",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:38:46.679673",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:40:53.014770",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:42:59.349609",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:45:05.643583",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:47:11.970478",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:57:48.106172",
+          "engagement": 0,
+          "success": false
+        },
+        {
+          "timestamp": "2025-06-30T08:59:54.418830",
+          "engagement": 0,
+          "success": false
+        }
+      ]
     }
   },
-  "last_updated": "2025-06-29T22:08:07.665212"
+  "last_updated": "2025-06-30T09:00:58.428019"
 }
