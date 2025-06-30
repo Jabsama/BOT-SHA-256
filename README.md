@@ -90,10 +90,10 @@ python SHA-256BOT.py --test
 python SHA-256BOT.py
 ```
 
-#### 3.3 Monitor Performance
+#### 3.3 Enable Live Dashboard (Optional)
 ```powershell
-# The bot will display real-time stats
-# Press Ctrl+C to stop safely
+# Run dashboard API for live monitoring at https://voltagegpu.com/SHA-256
+python dashboard_api.py
 ```
 
 ---
@@ -265,6 +265,35 @@ chmod +x start_bot.sh
 # Or manually
 source sha256-bot-env/bin/activate && python SHA-256BOT.py
 ```
+
+---
+
+## 📊 Live Dashboard Integration
+
+### 🌐 VoltageGPU Dashboard
+Monitor your bot in real-time at **https://voltagegpu.com/SHA-256**
+
+#### Features:
+- 📈 **Real-time Statistics** - Live posts, engagement, success rates
+- 🌍 **Global Monitoring** - Track performance across all regions
+- 🤖 **AI Insights** - Performance learning and optimization data
+- 📱 **Multi-Platform View** - Twitter, Telegram, Reddit in one dashboard
+- ⚡ **Live Status** - Connection status, uptime, current activity
+
+#### Setup Instructions:
+1. **Download and configure** BOT SHA-256 (follow setup guide above)
+2. **Run the dashboard API:**
+   ```bash
+   python dashboard_api.py
+   ```
+3. **Dashboard will auto-connect** and display your bot's live data
+
+#### Dashboard Features:
+- 🔌 **Auto-Connection** - Automatically detects and connects your bot
+- 📊 **Live Metrics** - Real-time updates every 30 seconds
+- 🎯 **Performance Tracking** - Success rates, engagement analytics
+- 🌍 **Regional Insights** - Timezone optimization data
+- 🛡️ **Safety Monitoring** - Rate limit status and compliance
 
 ---
 

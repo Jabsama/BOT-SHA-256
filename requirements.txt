@@ -18,6 +18,7 @@ asyncpraw>=7.7.0  # For async Reddit operations (optional)
 
 # HTTP and Connection Management
 httpx>=0.25.0
+websocket-client>=1.6.0  # For dashboard API connection
 
 # Logging and Monitoring
 logging  # Built-in with Python
