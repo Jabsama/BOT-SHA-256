@@ -1,5 +1,7 @@
 # Environment variables
 .env
+.env.local
+.env.production
 
 # Python
 __pycache__/
@@ -24,9 +26,36 @@ wheels/
 *.egg
 MANIFEST
 
-# Virtual environments
-venv/
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.venv
 env/
+venv/
 ENV/
 env.bak/
 venv.bak/
@@ -47,67 +76,13 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Logs
-*.log
+# Bot specific
 logs/*.log
+data/*.db
+data/*.json
+*.log
 
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-
-# AI learning data
-autonomous_insights.json
-autonomous_performance.db
-performance_analytics.db
-discovered_groups.json
-data/ab_test_data.json
-data/predictive_performance.json
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
-# Coverage reports
-htmlcov/
-.coverage
-.coverage.*
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# pipenv
-Pipfile.lock
-
-# PEP 582
-__pypackages__/
-
-# Celery
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# Personal data
+config/personal_*
+backup/
+temp/

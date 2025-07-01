@@ -1,451 +1,227 @@
-# 🚀 SHA-256 Bot - Autonomous Social Media Marketing Bot
+# 🚀 BOT SHA-256 - Autonomous AI-Powered Social Media Bot
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)](https://github.com/Jabsama/BOT-SHA-256)
+[![GitHub stars](https://img.shields.io/github/stars/Jabsama/BOT-SHA-256.svg)](https://github.com/Jabsama/BOT-SHA-256/stargazers)
 
-> 🤖 **The smartest autonomous social media bot that learns, adapts, and grows your audience across Twitter, Telegram, and Reddit!**
+An advanced, fully autonomous AI-powered social media automation bot designed for VoltageGPU affiliate marketing. Features intelligent content generation, multi-platform posting, and advanced performance optimization.
 
-## ✨ What Makes This Bot Special?
+## ✨ Features
 
-🧠 **AI-Powered Intelligence** - Learns from every post and optimizes automatically  
-⚡ **Multi-Platform Magic** - Manages Twitter, Telegram, and Reddit simultaneously  
-🛡️ **Ban-Proof Design** - Smart rate limiting keeps your accounts safe  
-🌍 **Global Reach** - Automatically targets optimal timezones worldwide  
-📈 **Growth Automation** - Intelligent follow/unfollow and community building  
+### 🤖 Autonomous AI Engine
+- **Self-Learning AI**: Adapts content based on performance metrics
+- **Predictive Analytics**: Optimizes posting times and content types
+- **A/B Testing**: Automatically tests different content variants
+- **Performance Tracking**: Real-time analytics and optimization
 
----
+### 📱 Multi-Platform Support
+- **Twitter**: Dual account support with intelligent rate limiting
+- **Telegram**: Channel and group posting with discovery
+- **Reddit**: AI-powered rule compliance and subreddit targeting
+- **Follow Management**: Automated Twitter growth strategies
 
-## 🎯 Quick Setup Guide
+### 🎯 Intelligent Content Generation
+- **Ultimate Viral Content**: 25+ optimized templates for maximum engagement
+- **Dynamic Variables**: Real-time GPU pricing and market data
+- **Hashtag Optimization**: AI-powered hashtag selection
+- **Platform Adaptation**: Content optimized for each platform
 
-### Choose Your Operating System:
-- 🪟 [**Windows Setup**](#-step-1-windows-setup)
-- 🐧 [**Linux Setup**](#-step-1-linux-setup)  
-- 🍎 [**macOS Setup**](#-step-1-macos-setup)
+### 🌍 Global Targeting
+- **Timezone Optimization**: Posts at optimal times for different regions
+- **Multi-Language Support**: Content generation in multiple languages
+- **Regional Adaptation**: Tailored content for different markets
 
----
+## 🚀 Quick Start
 
-## 🪟 Windows Setup
+### Prerequisites
+- Python 3.8 or higher
+- API keys for your chosen platforms (Twitter, Telegram, Reddit)
+- VoltageGPU affiliate account
 
-### 📦 Step 1: Install Requirements
+### Installation
 
-#### 1.1 Install Python
-```powershell
-# Download Python 3.8+ from python.org
-# ✅ Make sure to check "Add Python to PATH" during installation
-python --version
-```
-
-#### 1.2 Install Git
-```powershell
-# Download Git from git-scm.com
-# ✅ Use default settings during installation
-git --version
-```
-
-#### 1.3 Clone the Repository
-```powershell
-# Open PowerShell or Command Prompt
+1. **Clone the repository**
+```bash
 git clone https://github.com/Jabsama/BOT-SHA-256.git
 cd BOT-SHA-256
 ```
 
-### ⚙️ Step 2: Configure Environment
-
-#### 2.1 Install Dependencies
-```powershell
-# Install required Python packages
+2. **Install dependencies**
+```bash
 pip install -r requirements.txt
 ```
 
-#### 2.2 Create Configuration File
-```powershell
-# Copy the example configuration
-copy .env.example .env
-# Open .env with Notepad
-notepad .env
+3. **Configure environment**
+```bash
+cp .env.example .env
+# Edit .env with your API keys and affiliate code
 ```
 
-#### 2.3 Add Your API Keys
+4. **Run the bot**
+```bash
+python start_bot.py
+```
+
+## ⚙️ Configuration
+
+### Essential Configuration
+
+Edit your `.env` file with the following required settings:
+
 ```env
-# Edit .env file with your credentials:
-AFFILIATE_CODE=your-affiliate-code
-TWITTER_API_KEY=your-twitter-key
-TELEGRAM_BOT_TOKEN=your-telegram-token
-REDDIT_CLIENT_ID=your-reddit-id
+# Your VoltageGPU affiliate code
+AFFILIATE_CODE=your_affiliate_code_here
+
+# VoltageGPU API key
+VOLTAGE_API_KEY=your_api_key_here
+
+# Twitter API credentials
+TWITTER_API_KEY=your_twitter_api_key
+TWITTER_API_SECRET=your_twitter_api_secret
+TWITTER_BEARER_TOKEN=your_bearer_token
+TWITTER_ACCESS_TOKEN=your_access_token
+TWITTER_ACCESS_SECRET=your_access_secret
 ```
 
-### 🚀 Step 3: Launch the Bot
+### Platform Setup
 
-#### 3.1 Test Configuration
-```powershell
-# Run in test mode first
+#### Twitter
+1. Create a Twitter Developer account
+2. Create a new app and generate API keys
+3. Add keys to your `.env` file
+4. Optional: Configure second account for higher volume
+
+#### Telegram
+1. Create a bot via @BotFather
+2. Get your bot token
+3. Create a channel and add the bot as admin
+4. Add configuration to `.env`
+
+#### Reddit
+1. Create a Reddit app at reddit.com/prefs/apps
+2. Get client ID and secret
+3. Add credentials to `.env`
+
+## 🎯 Usage
+
+### Basic Usage
+
+```bash
+# Run in test mode (no actual posting)
 python SHA-256BOT.py --test
-```
 
-#### 3.2 Start Live Mode
-```powershell
-# Launch the autonomous bot
+# Run in production mode
 python SHA-256BOT.py
 ```
 
-#### 3.3 Enable Live Dashboard (Optional)
-```powershell
-# Run dashboard API for live monitoring at https://voltagegpu.com/SHA-256
-python dashboard_api.py
-```
+### Advanced Usage
 
----
-
-## 🐧 Linux Setup
-
-### 📦 Step 1: Install Requirements
-
-#### 1.1 Update System & Install Python
 ```bash
-# Update package manager
-sudo apt update && sudo apt upgrade -y
-# Install Python 3.8+
-sudo apt install python3 python3-pip git -y
-python3 --version
+# Start with the interactive launcher
+python start_bot.py
 ```
 
-#### 1.2 Install Virtual Environment
-```bash
-# Install venv for isolated environment
-sudo apt install python3-venv -y
-# Create virtual environment
-python3 -m venv sha256-bot-env
-```
+The interactive launcher provides options for:
+- Test mode
+- Configuration validation
+- Performance monitoring
+- Dashboard access
 
-#### 1.3 Clone Repository
-```bash
-# Clone and enter directory
-git clone https://github.com/Jabsama/BOT-SHA-256.git
-cd BOT-SHA-256
-```
+## 📊 Features Overview
 
-### ⚙️ Step 2: Configure Environment
+### Content Generation
+- **Viral Templates**: 25+ proven high-engagement templates
+- **Dynamic Pricing**: Real-time GPU market data integration
+- **Affiliate Integration**: Seamless affiliate link and code insertion
+- **Platform Optimization**: Content adapted for each platform's requirements
 
-#### 2.1 Activate Environment & Install Dependencies
-```bash
-# Activate virtual environment
-source sha256-bot-env/bin/activate
-# Install requirements
-pip install -r requirements.txt
-```
+### AI Optimization
+- **Performance Learning**: Analyzes engagement metrics to improve content
+- **Timing Optimization**: Posts at optimal times for maximum reach
+- **Hashtag Intelligence**: AI-powered hashtag selection and optimization
+- **A/B Testing**: Automatic testing of content variations
 
-#### 2.2 Create Configuration File
-```bash
-# Copy example configuration
-cp .env.example .env
-# Edit with your preferred editor
-nano .env  # or vim .env
-```
+### Safety Features
+- **Rate Limiting**: Intelligent rate limiting to avoid platform restrictions
+- **Account Protection**: Advanced anti-ban measures
+- **Error Recovery**: Automatic error handling and recovery
+- **Compliance**: Platform rule compliance checking
 
-#### 2.3 Set Permissions & Add API Keys
-```bash
-# Set proper permissions
-chmod 600 .env
-# Add your API credentials to .env file
-```
+## 🔧 Advanced Configuration
 
-### 🚀 Step 3: Launch the Bot
-
-#### 3.1 Test Configuration
-```bash
-# Ensure virtual environment is active
-source sha256-bot-env/bin/activate
-# Test the bot
-python SHA-256BOT.py --test
-```
-
-#### 3.2 Run as Service (Optional)
-```bash
-# Create systemd service for auto-start
-sudo nano /etc/systemd/system/sha256bot.service
-# Enable and start service
-sudo systemctl enable sha256bot
-sudo systemctl start sha256bot
-```
-
-#### 3.3 Monitor Logs
-```bash
-# View real-time logs
-tail -f logs/sha256bot_autonomous.log
-# Or check service status
-sudo systemctl status sha256bot
-```
-
----
-
-## 🍎 macOS Setup
-
-### 📦 Step 1: Install Requirements
-
-#### 1.1 Install Homebrew & Python
-```bash
-# Install Homebrew package manager
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# Install Python 3.8+
-brew install python git
-python3 --version
-```
-
-#### 1.2 Install Xcode Command Line Tools
-```bash
-# Install development tools
-xcode-select --install
-# Verify installation
-gcc --version
-```
-
-#### 1.3 Clone Repository
-```bash
-# Clone to your preferred directory
-git clone https://github.com/Jabsama/BOT-SHA-256.git
-cd BOT-SHA-256
-```
-
-### ⚙️ Step 2: Configure Environment
-
-#### 2.1 Create Virtual Environment
-```bash
-# Create isolated Python environment
-python3 -m venv sha256-bot-env
-# Activate environment
-source sha256-bot-env/bin/activate
-# Install dependencies
-pip install -r requirements.txt
-```
-
-#### 2.2 Configure Environment File
-```bash
-# Copy configuration template
-cp .env.example .env
-# Edit with TextEdit or preferred editor
-open -e .env
-```
-
-#### 2.3 Secure Configuration
-```bash
-# Set secure permissions on config file
-chmod 600 .env
-# Verify permissions
-ls -la .env
-```
-
-### 🚀 Step 3: Launch the Bot
-
-#### 3.1 Test Setup
-```bash
-# Activate environment
-source sha256-bot-env/bin/activate
-# Run test mode
-python SHA-256BOT.py --test
-```
-
-#### 3.2 Create Launch Script
-```bash
-# Create convenient launch script
-cat > start_bot.sh << 'EOF'
-#!/bin/bash
-cd "$(dirname "$0")"
-source sha256-bot-env/bin/activate
-python SHA-256BOT.py
-EOF
-chmod +x start_bot.sh
-```
-
-#### 3.3 Run the Bot
-```bash
-# Launch using script
-./start_bot.sh
-# Or manually
-source sha256-bot-env/bin/activate && python SHA-256BOT.py
-```
-
----
-
-## 📊 Live Dashboard Integration
-
-### 🌐 VoltageGPU Dashboard
-Monitor your bot in real-time at **https://voltagegpu.com/SHA-256**
-
-#### Features:
-- 📈 **Real-time Statistics** - Live posts, engagement, success rates
-- 🌍 **Global Monitoring** - Track performance across all regions
-- 🤖 **AI Insights** - Performance learning and optimization data
-- 📱 **Multi-Platform View** - Twitter, Telegram, Reddit in one dashboard
-- ⚡ **Live Status** - Connection status, uptime, current activity
-
-#### Setup Instructions:
-1. **Download and configure** BOT SHA-256 (follow setup guide above)
-2. **Run the dashboard API:**
-   ```bash
-   python dashboard_api.py
-   ```
-3. **Dashboard will auto-connect** and display your bot's live data
-
-#### Dashboard Features:
-- 🔌 **Auto-Connection** - Automatically detects and connects your bot
-- 📊 **Live Metrics** - Real-time updates every 30 seconds
-- 🎯 **Performance Tracking** - Success rates, engagement analytics
-- 🌍 **Regional Insights** - Timezone optimization data
-- 🛡️ **Safety Monitoring** - Rate limit status and compliance
-
----
-
-## 🔑 API Keys Setup Guide
-
-### 🐦 Twitter API (Optional but Recommended)
-1. **Visit:** [developer.twitter.com](https://developer.twitter.com)
-2. **Apply:** For developer account (free)
-3. **Create:** New app and get your keys
-4. **Add to .env:**
+### Rate Limiting
 ```env
-TWITTER_API_KEY=your_api_key_here
-TWITTER_API_SECRET=your_api_secret_here
-TWITTER_ACCESS_TOKEN=your_access_token_here
-TWITTER_ACCESS_SECRET=your_access_secret_here
-TWITTER_BEARER_TOKEN=your_bearer_token_here
+TWITTER_MAX_POSTS_PER_HOUR=15
+TELEGRAM_MAX_POSTS_PER_HOUR=30
+REDDIT_MAX_POSTS_PER_HOUR=10
 ```
 
-### 💬 Telegram Bot (Optional)
-1. **Message:** [@BotFather](https://t.me/botfather) on Telegram
-2. **Create:** New bot with `/newbot` command
-3. **Get:** Your bot token
-4. **Add to .env:**
+### Regional Targeting
 ```env
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-TELEGRAM_CHANNEL_ID=@your_channel_name
+DEFAULT_REGION=US_EAST
+DEFAULT_LANGUAGE=en
 ```
 
-### 📱 Reddit API (Optional)
-1. **Visit:** [reddit.com/prefs/apps](https://reddit.com/prefs/apps)
-2. **Create:** New application (script type)
-3. **Note:** Client ID and secret
-4. **Add to .env:**
+### Performance Tracking
 ```env
-REDDIT_CLIENT_ID=your_client_id_here
-REDDIT_CLIENT_SECRET=your_client_secret_here
-REDDIT_USERNAME=your_reddit_username
-REDDIT_PASSWORD=your_reddit_password
+TRACK_CONVERSIONS=true
+TRACK_CLICKS=true
+TRACK_ENGAGEMENT=true
 ```
 
----
+## 📈 Performance Monitoring
 
-## 🎮 Bot Features & Commands
+The bot includes comprehensive analytics:
+- **Engagement Metrics**: Likes, shares, comments, clicks
+- **Conversion Tracking**: Affiliate link performance
+- **Platform Analytics**: Performance by platform
+- **Time-based Analysis**: Optimal posting times
+- **Content Performance**: Best performing content types
 
-### 🤖 Autonomous Features
-- **Smart Posting:** Automatically creates and posts content
-- **Audience Growth:** Intelligent follow/unfollow strategies  
-- **Community Building:** Finds and joins relevant groups
-- **Performance Learning:** Adapts based on engagement data
+## 🛡️ Security & Privacy
 
-### 📊 Real-Time Monitoring
-```bash
-# The bot displays live stats:
-🤖 SHA-256 BOT - FULLY AUTONOMOUS AI
-💰 AFFILIATE CODE: your-code
-⏰ 10:30:45 | Uptime: 3600s
-🌍 Current Target: EU_WEST (en) 🔥 PEAK TIME
-
-🔗 PLATFORM STATUS:
-   🐦 Twitter: 🟢 READY (5 posts)
-   💬 Telegram: 🟢 READY (3 posts, 12 invites)
-   📍 Reddit: ⏰ Next post in 45m (2 posts)
-```
-
-### ⚙️ Advanced Configuration
-```env
-# Optional advanced settings
-VOLTAGE_API_KEY=your_gpu_api_key        # For GPU deal content
-AFFILIATE_CODE=your_affiliate_code      # Your referral code
-```
-
----
-
-## 🛡️ Safety & Best Practices
-
-### ✅ Built-in Protection
-- **Conservative Rate Limits:** Well below platform maximums
-- **Smart Timing:** Posts during optimal hours for each region
-- **Content Variation:** Avoids repetitive patterns
-- **Error Recovery:** Handles temporary failures gracefully
-
-### 🚨 Important Guidelines
-- **Start with Test Mode:** Always run `--test` first
-- **Monitor Initially:** Watch the bot for the first few hours
-- **Respect ToS:** Ensure compliance with platform terms
-- **Use Real Content:** Provide genuine value to your audience
-
----
-
-## 🆘 Troubleshooting
-
-### Common Issues & Solutions
-
-#### ❌ "Module not found" Error
-```bash
-# Solution: Activate virtual environment
-source sha256-bot-env/bin/activate  # Linux/Mac
-# or
-sha256-bot-env\Scripts\activate     # Windows
-```
-
-#### ❌ "API Authentication Failed"
-```bash
-# Solution: Check your .env file
-cat .env  # Verify API keys are correct
-```
-
-#### ❌ "Permission Denied"
-```bash
-# Solution: Fix file permissions
-chmod +x SHA-256BOT.py              # Linux/Mac
-# or run as administrator on Windows
-```
-
-### 📞 Get Help
-- **Issues:** [GitHub Issues](https://github.com/Jabsama/BOT-SHA-256/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/Jabsama/BOT-SHA-256/discussions)
-
----
+- **API Key Protection**: Secure storage of sensitive credentials
+- **Rate Limit Compliance**: Respects platform rate limits
+- **Error Handling**: Graceful handling of API errors
+- **Logging**: Comprehensive logging for debugging
+- **Data Privacy**: No personal data collection
 
 ## 🤝 Contributing
 
-We love contributions! Here's how to help:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. **🍴 Fork** the repository
-2. **🌿 Create** a feature branch (`git checkout -b amazing-feature`)
-3. **💾 Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **📤 Push** to the branch (`git push origin amazing-feature`)
-5. **🔄 Open** a Pull Request
-
----
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📝 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## ⚠️ Disclaimer
 
-This bot is for **educational and legitimate marketing purposes only**. Users are responsible for:
-- ✅ Complying with platform Terms of Service
-- ✅ Respecting rate limits and community guidelines  
-- ✅ Using appropriate content and targeting
-- ✅ Following applicable laws and regulations
+This bot is designed for legitimate affiliate marketing purposes. Users are responsible for:
+- Complying with platform terms of service
+- Following applicable laws and regulations
+- Using the bot ethically and responsibly
+- Respecting rate limits and platform guidelines
+
+## 🆘 Support
+
+- **Issues**: Report bugs via [GitHub Issues](https://github.com/Jabsama/BOT-SHA-256/issues)
+- **Documentation**: Check the wiki for detailed guides
+- **Community**: Join discussions in the repository
+
+## 🔗 Links
+
+- **VoltageGPU**: [https://voltagegpu.com](https://voltagegpu.com)
+- **Repository**: [https://github.com/Jabsama/BOT-SHA-256](https://github.com/Jabsama/BOT-SHA-256)
+- **License**: [MIT License](LICENSE)
 
 ---
 
-## 🌟 Star This Project!
+**Made with ❤️ for the AI community**
 
-If you find this bot useful, please ⭐ **star this repository** to show your support!
-
-**Made with ❤️ for the open source community**
-
----
-
-*Ready to grow your social media presence? Let's get started! 🚀*
+*Automate your affiliate marketing with intelligence and efficiency*

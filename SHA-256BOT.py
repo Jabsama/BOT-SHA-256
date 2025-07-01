@@ -30,7 +30,7 @@ os.environ['HTTPS_PROXY'] = ''
 
 from modules.platform_manager import AdvancedRateLimitManager, ConnectionPoolManager
 from modules.predictive_ai import PredictiveAI
-from modules.enterprise_content import EnterpriseContentGenerator
+# REMOVED: from modules.enterprise_content import EnterpriseContentGenerator
 from modules.ab_testing import ABTestingEngine
 from modules.reddit_intelligence import RedditIntelligence
 from modules.twitter_viral import TwitterViralOptimizer
@@ -86,60 +86,8 @@ class TimezoneOptimizer:
         
         return False
 
-class ContentGenerator:
-    """Generate unique content for different platforms"""
-    
-    def __init__(self):
-        self.content_templates = {
-            'twitter': {
-                'gpu_deals': [
-                    "🚀 Found an incredible GPU deal! {gpu_count}x {gpu_type} at ${price_per_hour}/hour in {location}. Perfect for AI/ML workloads! #GPU #AI #MachineLearning",
-                    "⚡ GPU Alert: {gpu_type} cluster available for ${price_per_hour}/hour! {uptime}% uptime guaranteed. Ideal for deep learning projects! #DeepLearning #GPU",
-                    "🔥 Hot deal: {gpu_count}x {gpu_type} GPUs in {location} - only ${price_per_hour}/hour! Great for training neural networks! #AI #GPU #Tech"
-                ],
-                'free_vpn': [
-                    "🔒 Need secure browsing? Check out these free VPN options that actually work! Privacy matters! #VPN #Privacy #Security",
-                    "🛡️ Protecting your data shouldn't cost a fortune. Here are reliable free VPN services! #Cybersecurity #VPN #Privacy"
-                ]
-            },
-            'telegram': {
-                'gpu_deals': [
-                    "🚀 **GPU DEAL ALERT** 🚀\n\n💻 {gpu_count}x {gpu_type}\n💰 ${price_per_hour}/hour\n📍 {location}\n⚡ {uptime}% uptime\n\nPerfect for AI/ML projects! DM for details.",
-                    "⚡ **PREMIUM GPU CLUSTER** ⚡\n\n🔥 {gpu_type} available now\n💵 Starting at ${price_per_hour}/hour\n🌍 Location: {location}\n\nIdeal for deep learning and AI training!"
-                ]
-            },
-            'reddit': {
-                'gpu_deals': [
-                    "I've been researching cost-effective GPU solutions for AI development and found some interesting alternatives to traditional cloud providers. Has anyone tried decentralized GPU networks?",
-                    "Looking into GPU economics for machine learning projects. The cost difference between traditional providers and emerging alternatives is significant. Any experiences to share?"
-                ]
-            }
-        }
-    
-    def generate_unique_content(self, platform: str, content_type: str, language: str, offer: Dict = None) -> str:
-        """Generate unique content for platform and type"""
-        if platform not in self.content_templates:
-            return f"Check out this amazing {content_type} opportunity!"
-        
-        if content_type not in self.content_templates[platform]:
-            content_type = list(self.content_templates[platform].keys())[0]
-        
-        templates = self.content_templates[platform][content_type]
-        template = random.choice(templates)
-        
-        if offer:
-            try:
-                return template.format(
-                    gpu_count=offer.get('gpu_count', 4),
-                    gpu_type=offer.get('gpu_type', 'H100'),
-                    price_per_hour=offer.get('price_per_hour', 35.99),
-                    location=offer.get('location', 'Singapore'),
-                    uptime=offer.get('uptime', 99.5)
-                )
-            except KeyError:
-                return template
-        
-        return template
+# Import our improved content manager
+from modules.ultimate_viral_content import UltimateViralContentGenerator
 
 class AutonomousContentOptimizer:
     """Optimize content based on performance data"""
@@ -234,14 +182,14 @@ class AutonomousSHA256Bot:
         # Initialize autonomous components
         self.performance_engine = AutonomousPerformanceEngine()
         self.timezone_optimizer = TimezoneOptimizer()
-        self.content_generator = ContentGenerator()
+        self.content_generator = UltimateViralContentGenerator()
         self.content_optimizer = AutonomousContentOptimizer()
         self.rate_limiter = AdvancedRateLimitManager()
         self.connection_manager = ConnectionPoolManager()
         
         # Initialize advanced AI modules
         self.predictive_ai = PredictiveAI()
-        self.enterprise_content = EnterpriseContentGenerator()
+        # REMOVED: self.enterprise_content = EnterpriseContentGenerator()
         self.ab_testing = ABTestingEngine()
         
         # Initialize intelligent modules
@@ -520,30 +468,14 @@ class AutonomousSHA256Bot:
                 content_types = ['gpu_deals', 'free_vpn', 'promo_earnings', 'combo_deals']
                 content_type = random.choice(content_types)
                 
-                # Check if we should use enterprise content (20% chance)
-                if random.random() < 0.2:
-                    enterprise_targets = self.enterprise_content.get_enterprise_targets()
-                    target = random.choice(enterprise_targets)
-                    content = self.enterprise_content.generate_enterprise_content(target, 'twitter', offers[0] if offers else None)
-                    logging.info(f"🏢 Using enterprise content for {target}")
-                else:
-                    # Generate regular content
-                    content = self.content_generator.generate_unique_content(
-                        'twitter', content_type, language, offers[0] if offers else None
-                    )
+                # ALWAYS use ULTIMATE viral content - NO MORE ENTERPRISE CONTENT!
+                content = self.content_generator.generate_ultimate_viral_content(
+                    offers[0] if offers else None
+                )
+                logging.info("🚀 Using ULTIMATE viral content")
                 
-                # Check for A/B testing
-                ab_variant = self.ab_testing.get_variant_for_test(content_type, 'twitter', region)
-                if ab_variant:
-                    content = ab_variant['content']
-                    logging.info(f"🧪 Using A/B test variant {ab_variant['id']}: {ab_variant['name']}")
-                else:
-                    # Start new A/B test if none active
-                    if random.random() < 0.3:  # 30% chance to start new test
-                        test_info = self.ab_testing.start_ab_test(content_type, 'twitter', region, content)
-                        variant = random.choice(test_info['variants'])
-                        content = variant['content']
-                        logging.info(f"🧪 Started new A/B test {test_info['id']}, using variant {variant['id']}")
+                # DISABLED A/B testing - use ONLY ultimate viral content
+                logging.info("🚀 Using pure ULTIMATE viral content (A/B testing disabled)")
                 
                 # Apply predictive AI optimizations
                 current_hour = datetime.now().hour
@@ -662,17 +594,11 @@ class AutonomousSHA256Bot:
             recommendations = self.performance_engine.get_autonomous_recommendations('telegram', region, language)
             content_type = 'gpu_deals'
             
-            # Check if we should use enterprise content (15% chance for Telegram)
-            if random.random() < 0.15:
-                enterprise_targets = self.enterprise_content.get_enterprise_targets()
-                target = random.choice(enterprise_targets)
-                content = self.enterprise_content.generate_enterprise_content(target, 'telegram', offers[0] if offers else None)
-                logging.info(f"🏢 Telegram: Using enterprise content for {target}")
-            else:
-                # Generate regular content
-                content = self.content_generator.generate_unique_content(
-                    'telegram', content_type, language, offers[0] if offers else None
-                )
+            # ALWAYS use ULTIMATE viral content for Telegram too!
+            content = self.content_generator.generate_ultimate_viral_content(
+                offers[0] if offers else None
+            )
+            logging.info("🚀 Telegram: Using ULTIMATE viral content")
             
             # Apply predictive AI optimizations for Telegram
             current_hour = datetime.now().hour
