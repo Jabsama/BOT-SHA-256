@@ -69,7 +69,9 @@ BOT SHA-256 has been completely transformed into a professional, open-source soc
 1. Clone the repository
 2. Install dependencies: `pip install -r requirements.txt`
 3. Copy `.env.example` to `.env` and configure
-4. Run: `python start_bot.py`
+4. Run the bot:
+   - **Interactive launcher**: `python start_bot.py` (recommended)
+   - **Direct execution**: `python SHA-256BOT.py` or `python SHA-256BOT.py --test`
 
 ## 🎯 Use Cases
 

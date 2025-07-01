@@ -58,8 +58,19 @@ cp .env.example .env
 ```
 
 4. **Run the bot**
+
+**Option 1: Interactive Launcher (Recommended)**
 ```bash
 python start_bot.py
+```
+
+**Option 2: Direct Bot Execution**
+```bash
+# Test mode (no actual posting)
+python SHA-256BOT.py --test
+
+# Production mode
+python SHA-256BOT.py
 ```
 
 ## ⚙️ Configuration
