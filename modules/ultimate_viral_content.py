@@ -16,9 +16,17 @@ class UltimateViralContentGenerator:
     def __init__(self):
         self.viral_templates = [
             # 🤯 PASSIVE INCOME HACKS (COURTS)
-            "🤯 Made €847 last month sharing my GPU code!\n\n✅ 2-click setup\n✅ Personal code\n✅ 5% earnings\n✅ €20+ withdrawals\n✅ FREE bot\n\nCode: {affiliate_code}\n{affiliate_link}\n\n#PassiveIncome #AI #GPU #FinTech",
+            "🤯 Made €847 last month sharing my GPU code! 🔥\n\n✅ 2-click setup\n✅ Personal code\n✅ 5% earnings\n✅ €20+ withdrawals\n✅ FREE bot\n\n#PassiveIncome #AI #GPU\n\nCode: {affiliate_code}\n{affiliate_link}",
             
-            "💰 VoltageGPU gives EVERYONE a referral code!\n\n• 5% discount for users\n• 5% profit for code owners\n• €20 min withdrawal\n• Stripe transfers\n• FREE viral bot\n\nCode: {affiliate_code}\n{affiliate_link}\n\n#Referral #AI #GPU #FinTech",
+            "💰 VoltageGPU gives EVERYONE a referral code!\n\n• 5% discount for users\n• 5% profit for code owners\n• €20 min withdrawal\n• Stripe transfers\n• FREE viral bot\n\n#MoneyMaking #CloudComputing #Tech\n\nCode: {affiliate_code}\n{affiliate_link}",
+            
+            "🚀 INSTANT SETUP: 2 clicks = personal promo code!\n\n✅ 5% earnings on deposits\n✅ €20+ withdrawals\n✅ FREE viral bot\n✅ Open source VPN\n\n#InstantSetup #Automation #SideHustle\n\nCode: {affiliate_code}\n{affiliate_link}",
+            
+            "🔥 VIRAL BOT MAGIC: Auto-shares your code in AI communities!\n\n✅ Reddit targeting\n✅ Discord servers\n✅ Telegram groups\n✅ 5% earnings\n\n#ViralBot #Marketing #Growth\n\nCode: {affiliate_code}\n{affiliate_link}",
+            
+            "💸 EASIEST €50/DAY: Share GPU code, earn passive income!\n\n✅ 2-click account\n✅ Personal code\n✅ Auto-targeting\n✅ Stripe payouts\n\n#EasyMoney #PassiveIncome #Crypto\n\nCode: {affiliate_code}\n{affiliate_link}",
+            
+            "🤖 AI DEVELOPERS: 70% cheaper GPU rentals + earn 5%!\n\n✅ H100, A100, RTX4090\n✅ Personal referral code\n✅ FREE VPN included\n✅ Open source bot\n\n#AIDevelopers #MachineLearning #Savings\n\nCode: {affiliate_code}\n{affiliate_link}",
             
             "🤖 VIRAL BOT INCLUDED: They give you an open-source bot that auto-shares your code where GPU demand is highest!\n\nSetup in 5 minutes ⚡\nAuto-targets AI communities 🎯\nMaximizes code exposure 📈\n100% legal & ethical ✅\n\nThis changes EVERYTHING!\n\nCode: {affiliate_code}\n{affiliate_link}\n\n#ViralMarketing #OpenSource #Bot #AI #GPU #Automation #Marketing #Growth #Tech #Innovation",
             

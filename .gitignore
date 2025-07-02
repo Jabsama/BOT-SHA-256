@@ -76,13 +76,39 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Bot specific
+# Bot specific - DONNÉES SENSIBLES
 logs/*.log
 data/*.db
 data/*.json
 *.log
+*.db
+*.json
+
+# Fichiers de développement et test
+test_*.py
+viral_*.py
+show_*.py
+preview_*.py
+integrate_*.py
+final_*.py
+fix_bot_issues.py
+simple_bot.py
 
 # Personal data
 config/personal_*
 backup/
 temp/
+autonomous_*.json
+autonomous_*.db
+performance_*.db
+twitter_*.db
+reddit_*.json
+discovered_*.json
+
+# Données sensibles du bot
+.env
+.env.*
+*.key
+*.secret
+api_keys.txt
+credentials.json

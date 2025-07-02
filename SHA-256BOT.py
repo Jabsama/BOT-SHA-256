@@ -449,13 +449,13 @@ class AutonomousSHA256Bot:
             if twitter_data['posts_today'] >= 15:
                 continue
             
-            # Check if 120 minutes have passed since last post for this account
+            # Check if 4 hours have passed since last post for this account (EXTENDED DELAY)
             last_post_time = getattr(twitter_data, 'last_post_time', None)
             if last_post_time:
                 time_since_last = datetime.now() - last_post_time
-                if time_since_last.total_seconds() < 7200:  # 120 minutes = 7200 seconds
-                    minutes_left = int((7200 - time_since_last.total_seconds()) / 60)
-                    logging.info(f"⏰ {twitter_data['name']}: Must wait {minutes_left}m (120min interval)")
+                if time_since_last.total_seconds() < 14400:  # 4 hours = 14400 seconds
+                    hours_left = (14400 - time_since_last.total_seconds()) / 3600
+                    logging.info(f"⏰ {twitter_data['name']}: Must wait {hours_left:.1f}h (4h interval)")
                     continue
                 
             try:
@@ -537,6 +537,8 @@ class AutonomousSHA256Bot:
                         final_content, 'twitter', 0, True
                     )
                     
+                    # Record the post time for this account
+                    twitter_data['last_post_time'] = datetime.now()
                     twitter_data['posts_today'] += 1
                     self.stats['twitter_posts'] += 1
                     self.stats['optimizations'] += 1
